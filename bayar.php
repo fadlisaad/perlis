@@ -256,6 +256,10 @@ if($config['fpx']['environment'] == 'Staging'){
                 $('#bank_code').empty();
                 get_list(mode);
             });
+            
+            $('#migs').on('change', function() {
+                $('#agree').removeAttr('required');
+            });
 
             function get_list(mode){
                 $.ajax({
