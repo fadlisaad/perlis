@@ -195,5 +195,6 @@ class Payment
             echo "<script type=\"text/javascript\">
                 document.getElementById('receipt').submit();
             </script>";
+        }
     }
 }
