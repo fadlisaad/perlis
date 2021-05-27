@@ -121,7 +121,7 @@ if(isset($_POST['payload'])) {
                                             <tr>
                                                 <td>
                                                     <ul>
-                                                        <li>No. Resit: <?php echo $receipt_no ?? '-' ?></li>
+                                                        <li>Mesej: <?php echo $message ?? '-' ?></li>
                                                         <li>ID Transaksi: <?php echo $trans_id ?? '-' ?></li>
                                                         <li>Tarikh/Masa: <?php echo $payment_datetime ?? '-' ?></li>
                                                         <li>Jumlah: RM <?php echo $amount ?? '-' ?></li>
@@ -146,7 +146,7 @@ if(isset($_POST['payload'])) {
                                             <tr>
                                                 <td><div class="alert alert-info"><?php echo $msg ?></div></td>
                                             </tr>
-                                            <?php else: $msg = "Pembayaran anda tidak berjaya. Mesej: ".$message." Sila cuba semula. Jika anda mempunyai sebarang pertanyaan, sila hubungi Perbendaharaan Negeri Perlis di ebayar@perlis.gov.my"; ?>
+                                            <?php else: $msg = "Pembayaran anda tidak berjaya. <br>Mesej: ".$message." <br>Sila cuba semula. Jika anda mempunyai sebarang pertanyaan, sila hubungi Perbendaharaan Negeri Perlis di ebayar@perlis.gov.my"; ?>
                                             <tr>
                                                 <td><div class="alert alert-warning"><?php echo $msg ?></div></td>
                                             </tr>
