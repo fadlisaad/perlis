@@ -132,55 +132,68 @@ class Payment
         require ('conn.php');
 
         $input = $_POST;
+        
+        if($_POST['STATUS'] == '1'){
 
-        $fpx_data = [
-            'status' => $_POST['STATUS'],
-            'status_code' => $_POST['STATUS_CODE'],
-            'status_message' => $_POST['STATUS_MESSAGE'],
-            'payment_datetime' => $_POST['PAYMENT_DATETIME'],
-            'payment_mode' => $_POST['PAYMENT_MODE'],
-            'amount' => $_POST['AMOUNT'],
-            'payment_transaction_id' => $_POST['PAYMENT_TRANS_ID'],
-            'buyer_bank' => $_POST['BUYER_BANK'],
-            'merchant_order_no' => $_POST['MERCHANT_ORDER_NO'],
-            'payment_transaction_id' => $_POST['APPROVAL_CODE'],
-            'trans_id' => $_POST['TRANS_ID'],
-            'approval_code' => $_POST['APPROVAL_CODE'],
-            'buyer_bank' => $_POST['BUYER_BANK'],
-            'buyer_name' => $_POST['BUYER_NAME']
-        ];
+            $fpx_data = [
+                'status' => $_POST['STATUS'],
+                'status_code' => $_POST['STATUS_CODE'],
+                'status_message' => $_POST['STATUS_MESSAGE'],
+                'payment_datetime' => $_POST['PAYMENT_DATETIME'],
+                'payment_mode' => $_POST['PAYMENT_MODE'],
+                'amount' => $_POST['AMOUNT'],
+                'payment_transaction_id' => $_POST['PAYMENT_TRANS_ID'],
+                'buyer_bank' => $_POST['BUYER_BANK'],
+                'merchant_order_no' => $_POST['MERCHANT_ORDER_NO'],
+                'payment_transaction_id' => $_POST['APPROVAL_CODE'],
+                'trans_id' => $_POST['TRANS_ID'],
+                'approval_code' => $_POST['APPROVAL_CODE'],
+                'buyer_bank' => $_POST['BUYER_BANK'],
+                'buyer_name' => $_POST['BUYER_NAME']
+            ];
 
-        $payment = $pdo->prepare("INSERT INTO payments (amount, status_code, status_message, payment_transaction_id, payment_datetime, buyer_name, buyer_bank, merchant_order_no) VALUES (:amount, :status_code, :status_message, :payment_transaction_id, :payment_datetime, :buyer_name, :buyer_bank, :merchant_order_no)");
-        $payment->bindValue(":amount", $fpx_data['amount']);
-        $payment->bindValue(":status_code", $fpx_data['status_code']);
-        $payment->bindValue(":status_message", $fpx_data['status_message']);
-        $payment->bindValue(":payment_transaction_id", $fpx_data['payment_transaction_id']);
-        $payment->bindValue(":payment_datetime", $fpx_data['payment_datetime']);
-        $payment->bindValue(":buyer_name", $fpx_data['buyer_name']);
-        $payment->bindValue(":buyer_bank", $fpx_data['buyer_bank']);
-        $payment->bindValue(":merchant_order_no", $fpx_data['merchant_order_no']);
-        $payment->execute();
-        $payment_id = $pdo->lastInsertId();
+            $payment = $pdo->prepare("INSERT INTO payments (amount, status_code, status_message, payment_transaction_id, payment_datetime, buyer_name, buyer_bank, merchant_order_no) VALUES (:amount, :status_code, :status_message, :payment_transaction_id, :payment_datetime, :buyer_name, :buyer_bank, :merchant_order_no)");
+            $payment->bindValue(":amount", $fpx_data['amount']);
+            $payment->bindValue(":status_code", $fpx_data['status_code']);
+            $payment->bindValue(":status_message", $fpx_data['status_message']);
+            $payment->bindValue(":payment_transaction_id", $fpx_data['payment_transaction_id']);
+            $payment->bindValue(":payment_datetime", $fpx_data['payment_datetime']);
+            $payment->bindValue(":buyer_name", $fpx_data['buyer_name']);
+            $payment->bindValue(":buyer_bank", $fpx_data['buyer_bank']);
+            $payment->bindValue(":merchant_order_no", $fpx_data['merchant_order_no']);
+            $payment->execute();
+            $payment_id = $pdo->lastInsertId();
 
-        $receipt_no = isset($_POST['RECEIPT_NO']) ? $_POST['RECEIPT_NO'] : '';
-        $payment_id = isset($payment_id) ? $payment_id : '';
+            $receipt_no = isset($_POST['RECEIPT_NO']) ? $_POST['RECEIPT_NO'] : '';
+            $payment_id = isset($payment_id) ? $payment_id : '';
 
-        // update transaction table
-        $transaction = $pdo->prepare("UPDATE transactions SET status = :status, receipt_no = :receipt_no, payment_id = :payment_id");
-        $transaction->bindValue(":status", $_POST['STATUS']);
-        $transaction->bindParam(":receipt_no", $receipt_no);
-        $transaction->bindParam(":payment_id", $payment_id);
-        $transaction->execute();
+            // update transaction table
+            $transaction = $pdo->prepare("UPDATE transactions SET status = :status, receipt_no = :receipt_no, payment_id = :payment_id");
+            $transaction->bindValue(":status", $_POST['STATUS']);
+            $transaction->bindParam(":receipt_no", $receipt_no);
+            $transaction->bindParam(":payment_id", $payment_id);
+            $transaction->execute();
 
-        // redirect to receipt page
-        echo "<form id=\"receipt\" action=\"resit.php\" method=\"post\">";
-        foreach ($input as $a => $b) {
-            echo '<input type="hidden" name="'.htmlentities($a).'" value="'.filter_var($b, FILTER_SANITIZE_STRING).'">';
-        }
-        echo '<input type="hidden" name="payload" value="'.base64_encode('eb4yAr').'">';
-        echo "</form>";
-        echo "<script type=\"text/javascript\">
-            document.getElementById('receipt').submit();
-        </script>";
+            // redirect to receipt page
+            echo "<form id=\"receipt\" action=\"resit.php\" method=\"post\">";
+            foreach ($input as $a => $b) {
+                echo '<input type="hidden" name="'.htmlentities($a).'" value="'.filter_var($b, FILTER_SANITIZE_STRING).'">';
+            }
+            echo '<input type="hidden" name="payload" value="'.base64_encode('eb4yAr').'">';
+            echo "</form>";
+            echo "<script type=\"text/javascript\">
+                document.getElementById('receipt').submit();
+            </script>";
+        } else {
+            // payment is failed, redirect to error page
+            echo "<form id=\"receipt\" action=\"failed.php\" method=\"post\">";
+            foreach ($input as $a => $b) {
+                echo '<input type="hidden" name="'.htmlentities($a).'" value="'.filter_var($b, FILTER_SANITIZE_STRING).'">';
+            }
+            echo '<input type="hidden" name="payload" value="'.base64_encode('eb4yAr').'">';
+            echo "</form>";
+            echo "<script type=\"text/javascript\">
+                document.getElementById('receipt').submit();
+            </script>";
     }
 }
