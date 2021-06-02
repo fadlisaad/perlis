@@ -97,14 +97,14 @@ if($config['fpx']['environment'] == 'Staging'){
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="payment_type">Agensi <span class="text-danger">*</span></label>
-                                        <select name="agency" id="agency" class="custom-select agency" required="">
-                                            <option value="0">- Pilih Agensi -</option>
+                                        <select name="agency" id="agency" class="custom-select agency" required>
+                                            <option value="">- Pilih Agensi -</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="payment_type">Jenis Pembayaran <span class="text-danger">*</span></label>
-                                        <select name="service" id="service" class="custom-select service" required="">
-                                            <option value="0">- Pilih Jenis Pembayaran -</option>
+                                        <select name="service" id="service" class="custom-select service" required>
+                                            <option value="">- Pilih Jenis Pembayaran -</option>
                                         </select>
                                         <input type="hidden" name="TRANS_ID" id="TRANS_ID">
                                         <input type="hidden" name="agency_id" id="agency_id">
