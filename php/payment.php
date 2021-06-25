@@ -166,13 +166,15 @@ class Payment
 
             $receipt_no = isset($_POST['RECEIPT_NO']) ? $_POST['RECEIPT_NO'] : '';
             $payment_id = isset($payment_id) ? $payment_id : '';
-
+            $trans_id_string = explode('-',$_POST['TRANS_ID']);
+            $trans_id = end($trans_id_string);
+            
             // update transaction table
             $transaction = $pdo->prepare("UPDATE transactions SET status = :status, receipt_no = :receipt_no, payment_id = :payment_id WHERE id = :id");
             $transaction->bindValue(":status", $_POST['STATUS']);
             $transaction->bindParam(":receipt_no", $receipt_no);
             $transaction->bindParam(":payment_id", $payment_id);
-            $transaction->bindParam(":id", $merchant_order_no);
+            $transaction->bindParam(":id", $trans_id);
             $transaction->execute();
 
             // redirect to receipt page

@@ -210,7 +210,9 @@ if(isset($_POST['payload'])) {
                 $mail->setFrom($config['email']['username'], $config['email']['from']);
                 $mail->addReplyTo($config['email']['username'], $config['email']['from']);
                 $mail->addAddress($email, $nama);
-                $mail->addCC($_POST['agency_email']);
+                if($config['fpx']['environment'] == 'Production'){
+                    $mail->addCC($_POST['agency_email']);
+                }
                 $mail->Subject = 'Status Pembayaran di E-Bayar Perlis';
                 $mail->isHTML(true);
                 $mail->Body = $receipt;
