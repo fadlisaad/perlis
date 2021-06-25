@@ -168,10 +168,11 @@ class Payment
             $payment_id = isset($payment_id) ? $payment_id : '';
 
             // update transaction table
-            $transaction = $pdo->prepare("UPDATE transactions SET status = :status, receipt_no = :receipt_no, payment_id = :payment_id");
+            $transaction = $pdo->prepare("UPDATE transactions SET status = :status, receipt_no = :receipt_no, payment_id = :payment_id WHERE id = :id");
             $transaction->bindValue(":status", $_POST['STATUS']);
             $transaction->bindParam(":receipt_no", $receipt_no);
             $transaction->bindParam(":payment_id", $payment_id);
+            $transaction->bindParam(":id", $merchant_order_no);
             $transaction->execute();
 
             // redirect to receipt page
