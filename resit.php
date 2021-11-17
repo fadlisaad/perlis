@@ -204,7 +204,8 @@ if(isset($_POST['payload'])) {
                 $mail->SMTPDebug = $config['email']['debug'];
                 $mail->Host = $config['email']['host'];
                 $mail->Port = $config['email']['port'];
-                $mail->SMTPAuth = true;
+                $mail->SMTPAuth = false;
+                $mail->SMTPAutoTLS = false;
                 $mail->Username = $config['email']['username'];
                 $mail->Password = $config['email']['password'];
                 $mail->setFrom($config['email']['username'], $config['email']['from']);
