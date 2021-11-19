@@ -143,6 +143,14 @@ class Payment
         
         if($_POST['STATUS'] == '1'){
 
+            // generate PDF receipt
+
+            $client = new Client();
+            $options = ['form_params' => [$_POST]];
+            
+            $response = $client->request('POST', $this->config['base_url'].'/php/generate-resit.php', $options);
+            $pdf = $response->getBody();
+
             $fpx_data = [
                 'status' => $_POST['STATUS'],
                 'status_code' => $_POST['STATUS_CODE'],
@@ -184,14 +192,6 @@ class Payment
             $transaction->bindParam(":payment_id", $payment_id);
             $transaction->bindParam(":id", $trans_id);
             $transaction->execute();
-
-            // generate PDF receipt
-
-            $client = new Client();
-            $resit_data = array($_POST);
-            $options = ['form_params' => [$resit_data]];
-            $response = $client->request('POST', $this->config['base_url'].'/php/generate-resit.php', $options);
-            $pdf = $response->getBody();
 
             if($pdf)
             {
