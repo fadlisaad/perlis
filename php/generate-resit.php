@@ -1,5 +1,5 @@
 <?php
-require __DIR__.'/vendor/autoload.php';
+require ROOT_DIR.'/vendor/autoload.php';
 require_once('currency.php'); 
 
 use Spipu\Html2Pdf\Html2Pdf;
@@ -158,4 +158,4 @@ $html .= '<table border="0" cellspacing="0" cellpadding="0">
 <p>No. Kelulusan Perbendaharaan : PKN/BNPs/2021<br>Resit ini dijana oleh Portal eBayar Perlis</p>';
 $html .= '</page>';
 $html2pdf->writeHTML($html);
-$html2pdf->output('../resit/'.$_POST['TRANS_ID'].'.pdf');
+$html2pdf->output(ROOT_DIR.'/resit/'.$_POST['TRANS_ID'].'.pdf');
