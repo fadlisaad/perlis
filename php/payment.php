@@ -1,5 +1,7 @@
 <?php
 require ('stringer.php');
+require __DIR__.'/../vendor/autoload.php';
+use GuzzleHttp\Client;
 
 class Payment
 {
@@ -132,6 +134,7 @@ class Payment
         require ('conn.php');
 
         $input = $_POST;
+        die($input);
         
         if($_POST['STATUS'] == '1'){
 
@@ -177,16 +180,29 @@ class Payment
             $transaction->bindParam(":id", $trans_id);
             $transaction->execute();
 
-            // redirect to receipt page
-            echo "<form id=\"receipt\" action=\"resit.php\" method=\"post\">";
-            foreach ($input as $a => $b) {
-                echo '<input type="hidden" name="'.htmlentities($a).'" value="'.filter_var($b, FILTER_SANITIZE_STRING).'">';
+            // generate PDF receipt
+
+            $client = new Client();
+            $response = $client->request('POST', $this->config['base_url'].'/generate-resit.php', $input);
+            $pdf = $response->getBody()->getContents();
+
+            if($pdf)
+            {
+                // redirect to receipt page
+                echo "<form id=\"receipt\" action=\"resit.php\" method=\"post\">";
+                foreach ($input as $a => $b) {
+                    echo '<input type="hidden" name="'.htmlentities($a).'" value="'.filter_var($b, FILTER_SANITIZE_STRING).'">';
+                }
+                echo '<input type="hidden" name="payload" value="'.base64_encode('eb4yAr').'">';
+                echo "</form>";
+                echo "<script type=\"text/javascript\">
+                    document.getElementById('receipt').submit();
+                </script>";
             }
-            echo '<input type="hidden" name="payload" value="'.base64_encode('eb4yAr').'">';
-            echo "</form>";
-            echo "<script type=\"text/javascript\">
-                document.getElementById('receipt').submit();
-            </script>";
+            else
+            {
+                echo "Unable to generate PDF receipt";
+            }
         } else {
             // payment is failed, redirect to error page
             echo "<form id=\"receipt\" action=\"failed.php\" method=\"post\">";

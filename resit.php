@@ -198,6 +198,8 @@ if(isset($_POST['payload'])) {
                 $receipt .= "<li>No. Cukai Tanah / No. Akaun: ".$_POST['cukai']."</li>";
                     endif;
                 $receipt .= "</ul>";
+
+                // check pdf resit sebelum send as attachment
                 
                 $mail = new PHPMailer;
                 $mail->isSMTP();
@@ -215,6 +217,7 @@ if(isset($_POST['payload'])) {
                     $mail->addCC($_POST['agency_email']);
                 }
                 $mail->Subject = 'Status Pembayaran di E-Bayar Perlis';
+                $mail->AddAttachment('resit/'.$trans_id.'.pdf', $trans_id.'.pdf');
                 $mail->isHTML(true);
                 $mail->Body = $receipt;
                 if (!$mail->send()) {

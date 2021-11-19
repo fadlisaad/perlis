@@ -79,11 +79,4 @@ switch ($id) {
         return $payment->response($data);
 		
 	break;
-
-    case 'test-amount':
-
-        require_once('php/currency.php');
-        echo convertMoney('100.50');
-		
-	break;
 }
