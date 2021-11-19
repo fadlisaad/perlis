@@ -1,6 +1,6 @@
 <?php
 require ('stringer.php');
-require (ROOT_DIR.'/vendor/autoload.php');
+require '../vendor/autoload.php';
 use GuzzleHttp\Client;
 
 class Payment
