@@ -1,22 +1,10 @@
 {
-    "email": {
-        "from": "github-hook@perlis.gov.my",
-        "to": "fadli@reliva.com.my"
+    "database": {
+        "host": "localhost",
+        "db": "perlis",
+        "user": "root",
+        "pass": "root"
     },
-    "endpoints": [
-        {
-            "repo": "fadlisaad/perlis",
-            "branch": "master",
-            "action": "Update Perlis git",
-            "run": "/home/bptm/git.sh"
-        }
-    ],
-    /*"fpx": {
-        "environment": "Staging",
-        "exchange-id": "EX00011786",
-        "merchant-code": "perlis",
-        "url": "https://epayment-stg.perlis.gov.my/eps/request"
-    },*/
     "fpx": {
         "environment": "Production",
         "exchange-id": "EX00011050",
@@ -25,5 +13,23 @@
     },
     "stringer": {
         "url": "https://epayment.perlis.gov.my/stringer"
+    },
+    "email": {
+        "debug": "0",
+        "host": "mail.perlis.gov.my",
+        "port": "587",
+        "username": "ebayar@perlis.gov.my",
+        "password": "[@perlis2020]",
+        "from": "E-Bayar Perlis"
+    },
+    "recaptcha": {
+        "site-key": "",
+        "secret-key": ""
+    },
+    "maintenance": "off",
+    "cache": "5",
+    "color": {
+        "kuning": "#fbd016",
+        "biru": "#002879"
     }
 }
