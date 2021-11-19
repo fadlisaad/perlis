@@ -134,7 +134,6 @@ class Payment
         require ('conn.php');
 
         $input = $_POST;
-        die($input);
         
         if($_POST['STATUS'] == '1'){
 
