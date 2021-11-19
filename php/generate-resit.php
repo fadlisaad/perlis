@@ -3,7 +3,6 @@ require __DIR__.'/../vendor/autoload.php';
 require_once('currency.php'); 
 
 use Spipu\Html2Pdf\Html2Pdf;
-var_dump($_POST);die;
 
 $html2pdf = new Html2Pdf('P', 'A4', 'en');
 $html = '<page backtop="7mm" backbottom="7mm" backleft="10mm" backright="10mm">';
