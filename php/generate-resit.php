@@ -42,7 +42,7 @@ $html .= '<table border="0" cellspacing="0" cellpadding="0">
 		</tr>
 	</tbody>
 </table>
-<p><
+
 <table border="0" width="800" cellspacing="0" cellpadding="0">
 	<tbody>
 		<tr>

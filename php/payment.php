@@ -189,7 +189,7 @@ class Payment
 
             $client = new Client();
             $response = $client->request('POST', $this->config['base_url'].'/php/generate-resit.php', $input);
-            $pdf = $response->getBody()->getContents();
+            $pdf = $response->getBody();
 
             if($pdf)
             {
