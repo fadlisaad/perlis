@@ -2,8 +2,8 @@
     "require": {
         "phpmailer/phpmailer": "^6.2",
         "ezyang/htmlpurifier": "^4.13",
-        "tnkemdilim/money-to-words-converter": "^2.1",
         "spipu/html2pdf": "^5.2",
-        "guzzlehttp/guzzle": "^7.4"
+        "guzzlehttp/guzzle": "^7.4",
+        "kwn/number-to-words": "^2.2"
     }
 }

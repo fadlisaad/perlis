@@ -36,9 +36,9 @@ $html .= '<table border="0" cellspacing="0" cellpadding="0">
 		</tr>
 		<tr>
 			<td>&nbsp;</td>
-			<td>Tarikh</td>
+			<td><strong>Tarikh</strong></td>
 			<td>:</td>
-			<td>'.$_POST['PAYMENT_DATETIME'].'</td>
+			<td>'.date('d-m-Y', strtotime($_POST['PAYMENT_DATETIME'])).'</td>
 		</tr>
 	</tbody>
 </table>
@@ -46,27 +46,27 @@ $html .= '<table border="0" cellspacing="0" cellpadding="0">
 <table border="0" width="800" cellspacing="0" cellpadding="0">
 	<tbody>
 		<tr>
-			<td width="132">Diterima daripada</td>
+			<td width="132"><strong>Diterima daripada</strong></td>
 			<td width="10">:</td>
 			<td width="522">'.$_POST['nama'].'</td>
 		</tr>
 		<tr>
-			<td width="132">No. Pelanggan</td>
+			<td width="132"><strong>No. Pelanggan</strong></td>
 			<td width="10">:</td>
 			<td width="522">'.$_POST['nric'].'</td>
 		</tr>
 		<tr>
-			<td width="132">No. Telefon</td>
+			<td width="132"><strong>No. Telefon</strong></td>
 			<td width="10">:</td>
 			<td width="522">'.$_POST['telefon'].'</td>
 		</tr>
 		<tr>
-			<td width="132">Alamat</td>
+			<td width="132"><strong>Alamat</strong></td>
 			<td width="10">:</td>
 			<td width="522">'.$_POST['alamat'].'</td>
 		</tr>
 		<tr>
-			<td width="132">E-Mel</td>
+			<td width="132"><strong>E-Mel</strong></td>
 			<td width="10">:</td>
 			<td width="522">'.$_POST['email'].'</td>
 		</tr>
@@ -76,27 +76,27 @@ $html .= '<table border="0" cellspacing="0" cellpadding="0">
 	</tbody>
 </table>
 
-<table border="0.5" width="700" cellspacing="0" cellpadding="0">
+<table border="0.5" cellspacing="0" cellpadding="0" style="table-layout: fixed; width: 750px">
 	<tbody>
 		<tr style="background:#f2f2f2;text-align: center;">
 			<td width="38"><strong>Bil.</strong></td>
-			<td width="123"><strong>Perihal Pembayaran</strong></td>
-			<td width="102"><strong>Cara Pembayaran/ Bank Pembayar</strong></td>
+			<td width="160"><strong>Perihal Pembayaran</strong></td>
+			<td width="102"><strong>Cara Pembayaran / Bank Pembayar</strong></td>
 			<td width="144"><strong>Rujukan Pembayaran</strong></td>
-			<td width="180"><strong>ID Transaksi</strong></td>
-			<td width="85"><strong>Amaun (RM)</strong></td>
+			<td width="100"><strong>ID Transaksi</strong></td>
+			<td width="50"><strong>Amaun (RM)</strong></td>
 		</tr>
 		<tr>
-			<td style="text-align: center;" width="38">1.</td>
-			<td style="text-align: center;" width="123">'.$_POST['nama_agensi'].'<br>'.$_POST['kod_agensi'].'</td>
-			<td style="text-align: center;" width="102">'.$_POST['PAYMENT_MODE'].'<br>'.$_POST['BUYER_BANK'].'</td>
-			<td style="text-align: center;" width="144">'.$_POST['PAYMENT_TRANS_ID'].'</td>
-			<td style="text-align: center;" width="180">'.$_POST['TRANS_ID'].'</td>
-			<td width="85" style="text-align: center;">'.$_POST['AMOUNT'].'</td>
+			<td style="text-align: center;padding: 5px;">1.</td>
+			<td style="text-align: left;padding: 5px;"><div style="width: 150px;">'.strtoupper($_POST['jenis_pembayaran']).'<br>'.$_POST['cukai'].'</div></td>
+			<td style="text-align: center;padding: 5px;">'.strtoupper($_POST['PAYMENT_MODE']).'<br>'.$_POST['BUYER_BANK'].'</td>
+			<td style="text-align: center;padding: 5px;">'.$_POST['PAYMENT_TRANS_ID'].'</td>
+			<td style="text-align: center;padding: 5px;">'.$_POST['TRANS_ID'].'</td>
+			<td style="text-align: center;padding: 5px;">'.$_POST['AMOUNT'].'</td>
 		</tr>
 		<tr>
-			<td colspan="5" width="400" style="text-align: right;"><strong>JUMLAH</strong></td>
-			<td width="85" style="text-align: center;"><strong>'.$_POST['AMOUNT'].'</strong></td>
+			<td colspan="5" width="400" style="text-align: right;padding: 5px;"><strong>JUMLAH</strong></td>
+			<td width="85" style="text-align: center;padding: 5px;"><strong>'.$_POST['AMOUNT'].'</strong></td>
 		</tr>
 	</tbody>
 </table>
@@ -113,12 +113,12 @@ $html .= '<table border="0" cellspacing="0" cellpadding="0">
 		<tr>
 			<td width="132">Catatan</td>
 			<td width="10">:</td>
-			<td width="522">'.$_POST['TRANS_ID'].'</td>
+			<td width="522">'.strtoupper($_POST['catatan']).'</td>
 		</tr>
 		<tr>
 			<td width="132">Jabatan</td>
 			<td width="10">:</td>
-			<td width="">'.$_POST['TRANS_ID'].'</td>
+			<td width="">'.strtoupper($_POST['nama_agensi']).'</td>
 		</tr>
 	</tbody>
 </table>
