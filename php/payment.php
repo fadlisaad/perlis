@@ -188,7 +188,7 @@ class Payment
             // generate PDF receipt
 
             $client = new Client();
-            $response = $client->request('POST', $this->config['base_url'].'/generate-resit.php', $input);
+            $response = $client->request('POST', $this->config['base_url'].'/php/generate-resit.php', $input);
             $pdf = $response->getBody()->getContents();
 
             if($pdf)
