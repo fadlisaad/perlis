@@ -1,14 +1,15 @@
 <?php
 require_once __DIR__ . '/../vendor/autoload.php';
-use TNkemdilim\MoneyToWords\Converter;
-use TNkemdilim\MoneyToWords\Languages as Language;
+use NumberToWords\NumberToWords;
 
 function convertMoney($amount)
 {
-    $converter = new Converter("ringgit", "sen", Language::MALAY);
-    $ringgit = $converter->convert($amount);
-    $ringgit = str_replace(',', '', $ringgit);
-    $ringgit = str_replace('hanya', 'sahaja', $ringgit);
+    // create the number to words "manager" class
+    $numberToWords = new NumberToWords();
+
+    // build a new currency transformer using the RFC 3066 language identifier
+    $numberTransformer = $numberToWords->getCurrencyTransformer('ms');
+    $ringgit = $numberTransformer->toWords($amount*100, 'MYR');
     $ringgit = strtoupper($ringgit);
     return $ringgit;
 }
