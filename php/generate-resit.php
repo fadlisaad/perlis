@@ -159,4 +159,3 @@ $html .= '<table border="0" cellspacing="0" cellpadding="0">
 $html .= '</page>';
 $html2pdf->writeHTML($html);
 $html2pdf->output('../resit/'.$_POST['TRANS_ID'].'.pdf');
-return;
