@@ -3,32 +3,7 @@ require __DIR__.'/../vendor/autoload.php';
 require_once('currency.php'); 
 
 use Spipu\Html2Pdf\Html2Pdf;
-
-/*
-STATUS:1
-TRANS_ID:567
-RECEIPT_NO:EBYR210622-0000309
-PAYMENT_TRANS_ID:2019032503053000000000000000000191
-PAYMENT_DATETIME:2021-06-22 17:11:47
-AMOUNT:50.00
-BUYER_BANK:CIMB BANK
-MERCHANT_ORDER_NO:567
-PAYMENT_MODE:fpx
-nama:MARIAM BINTI MAHAMOD
-nric:821124095012
-telefon:01136461169
-kod_agensi:005000
-nama_agensi:Pejabat Setiausaha Kerajaan Negeri Perlis (Unit Kewangan)
-jenis_pembayaran:Bayaran Borang Sebutharga/Tender
-alamat:
-cukai:
-catatan:SEBUTHARGA SYARIKAT CSE SERVICES ENTERPRISE
-agency_email:psukfpx@perlis.gov.my
-STATUS_CODE:0
-STATUS_MESSAGE:Debit approved
-APPROVAL_CODE:
-BUYER_NAME:test buyer
-*/
+var_dump($_POST);die;
 
 $html2pdf = new Html2Pdf('P', 'A4', 'en');
 $html = '<page backtop="7mm" backbottom="7mm" backleft="10mm" backright="10mm">';
