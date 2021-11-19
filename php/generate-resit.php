@@ -1,5 +1,5 @@
 <?php
-require ROOT_DIR.'/vendor/autoload.php';
+require __DIR__.'/../vendor/autoload.php';
 require_once('currency.php'); 
 
 use Spipu\Html2Pdf\Html2Pdf;
