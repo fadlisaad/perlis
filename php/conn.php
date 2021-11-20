@@ -1,4 +1,5 @@
 <?php
+define('ROOT_DIR', dirname(__DIR__, 1));
 
 $config_filename = ROOT_DIR.'/config.json';
 
