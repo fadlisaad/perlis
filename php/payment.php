@@ -1,7 +1,6 @@
 <?php
 require ('stringer.php');
 require __DIR__.'/../vendor/autoload.php';
-use GuzzleHttp\Client;
 
 class Payment
 {
@@ -172,22 +171,6 @@ class Payment
                 'email' => $_POST['email']
             ];
 
-            // generate PDF receipt
-
-            $client = new Client();
-            $formData = null;
-            foreach ($input as $k => $v) {
-                $formData[$k] = $v;
-            }
-            $options = [
-                'form_params' => $fpx_data
-            ];
-
-            //print_r($options);die;
-            
-            $response = $client->request('POST', $this->config['base_url'].'/php/generate-resit.php', $options);
-            $pdf = $response->getBody();
-
             $payment = $pdo->prepare("INSERT INTO payments (amount, status_code, status_message, payment_transaction_id, payment_datetime, buyer_name, buyer_bank, merchant_order_no) VALUES (:amount, :status_code, :status_message, :payment_transaction_id, :payment_datetime, :buyer_name, :buyer_bank, :merchant_order_no)");
             $payment->bindValue(":amount", $fpx_data['amount']);
             $payment->bindValue(":status_code", $fpx_data['status_code']);
@@ -213,23 +196,16 @@ class Payment
             $transaction->bindParam(":id", $trans_id);
             $transaction->execute();
 
-            if($pdf)
-            {
-                // redirect to receipt page
-                echo "<form id=\"receipt\" action=\"resit.php\" method=\"post\">";
-                foreach ($input as $a => $b) {
-                    echo '<input type="hidden" name="'.htmlentities($a).'" value="'.filter_var($b, FILTER_SANITIZE_STRING).'">';
-                }
-                echo '<input type="hidden" name="payload" value="'.base64_encode('eb4yAr').'">';
-                echo "</form>";
-                echo "<script type=\"text/javascript\">
-                    document.getElementById('receipt').submit();
-                </script>";
+            // redirect to receipt page
+            echo "<form id=\"receipt\" action=\"resit.php\" method=\"post\">";
+            foreach ($input as $a => $b) {
+                echo '<input type="hidden" name="'.htmlentities($a).'" value="'.filter_var($b, FILTER_SANITIZE_STRING).'">';
             }
-            else
-            {
-                echo "Unable to generate PDF receipt";
-            }
+            echo '<input type="hidden" name="payload" value="'.base64_encode('eb4yAr').'">';
+            echo "</form>";
+            echo "<script type=\"text/javascript\">
+                document.getElementById('receipt').submit();
+            </script>";
         } else {
             // payment is failed, redirect to error page
             echo "<form id=\"receipt\" action=\"failed.php\" method=\"post\">";
