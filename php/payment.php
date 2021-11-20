@@ -1,5 +1,6 @@
 <?php
 require ('stringer.php');
+require __DIR__.'/../vendor/autoload.php';
 
 class Payment
 {
@@ -13,6 +14,12 @@ class Payment
             throw new Exception("Can't find ".$config_filename);
         }
         $this->config = json_decode(file_get_contents($config_filename), true);
+
+        if($this->config['fpx']['environment'] == 'Staging'){
+            ini_set('display_errors', 1);
+            ini_set('display_startup_errors', 1);
+            error_reporting(E_ALL);
+        }
     }
 
     # process online payment
@@ -149,7 +156,19 @@ class Payment
                 'trans_id' => $_POST['TRANS_ID'],
                 'approval_code' => $_POST['APPROVAL_CODE'],
                 'buyer_bank' => $_POST['BUYER_BANK'],
-                'buyer_name' => $_POST['BUYER_NAME']
+                'buyer_name' => $_POST['BUYER_NAME'],
+                'receipt_no' => $_POST['RECEIPT_NO'],
+                'nama' => $_POST['nama'],
+                'nric' => $_POST['nric'],
+                'telefon' => $_POST['telefon'],
+                'kod_agensi' => $_POST['kod_agensi'],
+                'nama_agensi' => $_POST['nama_agensi'],
+                'jenis_pembayaran' => $_POST['jenis_pembayaran'],
+                'alamat' => $_POST['alamat'],
+                'cukai' => $_POST['cukai'],
+                'catatan' => $_POST['catatan'],
+                'agency_email' => $_POST['agency_email'],
+                'email' => $_POST['email']
             ];
 
             $payment = $pdo->prepare("INSERT INTO payments (amount, status_code, status_message, payment_transaction_id, payment_datetime, buyer_name, buyer_bank, merchant_order_no) VALUES (:amount, :status_code, :status_message, :payment_transaction_id, :payment_datetime, :buyer_name, :buyer_bank, :merchant_order_no)");
