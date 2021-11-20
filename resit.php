@@ -303,7 +303,7 @@ if(isset($_POST['payload'])) {
                                             <?php endif; ?>
                                             <tr>
                                                 <td>
-                                                    <a href="javascript:window.print()" class="btn bg-biru text-white d-print-none"><i class="fa fa-print"></i> Cetak</a>
+                                                    <a href="https://ebayar.perlis.gov.my/resit/<?php echo $trans_id.'.pdf' ?>" class="btn bg-biru text-white d-print-none" target="_blank"><i class="fa fa-print"></i> Cetak</a>
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -360,7 +360,7 @@ if(isset($_POST['payload'])) {
                     $mail->addCC($_POST['agency_email']);
                 }
                 $mail->Subject = 'Status Pembayaran di E-Bayar Perlis';
-                $mail->AddAttachment('resit/'.$trans_id.'.pdf', $trans_id.'.pdf');
+                $mail->AddAttachment('resit/'.$trans_id.'.pdf', 'Resit-eBayar-'.$trans_id.'.pdf');
                 $mail->isHTML(true);
                 $mail->Body = $receipt;
                 if (!$mail->send()) {
