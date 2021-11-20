@@ -143,13 +143,13 @@ if(isset($_POST['payload'])) {
                                     <td>&nbsp;</td>
                                     <td><strong>No. Resit</strong></td>
                                     <td>:</td>
-                                    <td>'.$_POST['receipt_no'].'</td>
+                                    <td>'.$receipt_no.'</td>
                                 </tr>
                                 <tr>
                                     <td>&nbsp;</td>
                                     <td><strong>Tarikh</strong></td>
                                     <td>:</td>
-                                    <td>'.date('d-m-Y', strtotime($_POST['payment_datetime'])).'</td>
+                                    <td>'.date('d-m-Y', strtotime($payment_datetime)).'</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -159,27 +159,27 @@ if(isset($_POST['payload'])) {
                                 <tr>
                                     <td width="132"><strong>Diterima daripada</strong></td>
                                     <td width="10">:</td>
-                                    <td width="522">'.$_POST['nama'].'</td>
+                                    <td width="522">'.$nama.'</td>
                                 </tr>
                                 <tr>
                                     <td width="132"><strong>No. Pelanggan</strong></td>
                                     <td width="10">:</td>
-                                    <td width="522">'.$_POST['nric'].'</td>
+                                    <td width="522">'.$nric.'</td>
                                 </tr>
                                 <tr>
                                     <td width="132"><strong>No. Telefon</strong></td>
                                     <td width="10">:</td>
-                                    <td width="522">'.$_POST['telefon'].'</td>
+                                    <td width="522">'.$telefon.'</td>
                                 </tr>
                                 <tr>
                                     <td width="132"><strong>Alamat</strong></td>
                                     <td width="10">:</td>
-                                    <td width="522">'.$_POST['alamat'].'</td>
+                                    <td width="522">'.$alamat.'</td>
                                 </tr>
                                 <tr>
                                     <td width="132"><strong>E-Mel</strong></td>
                                     <td width="10">:</td>
-                                    <td width="522">'.$_POST['email'].'</td>
+                                    <td width="522">'.$email.'</td>
                                 </tr>
                                 <tr>
                                     <td colspan="3">&nbsp;</td>
@@ -199,15 +199,15 @@ if(isset($_POST['payload'])) {
                                 </tr>
                                 <tr>
                                     <td style="text-align: center;padding: 5px;">1.</td>
-                                    <td style="text-align: left;padding: 5px;"><div style="width: 150px;">'.strtoupper($_POST['jenis_pembayaran']).'<br>'.$_POST['cukai'].'</div></td>
-                                    <td style="text-align: center;padding: 5px;">'.strtoupper($_POST['payment_mode']).'<br>'.$_POST['buyer_bank'].'</td>
-                                    <td style="text-align: center;padding: 5px;">'.$_POST['payment_transaction_id'].'</td>
-                                    <td style="text-align: center;padding: 5px;">'.$_POST['trans_id'].'</td>
-                                    <td style="text-align: center;padding: 5px;">'.$_POST['amount'].'</td>
+                                    <td style="text-align: left;padding: 5px;"><div style="width: 150px;">'.strtoupper($jenis_pembayaran).'<br>'.$cukai.'</div></td>
+                                    <td style="text-align: center;padding: 5px;">'.strtoupper($payment_mode).'<br>'.$buyer_bank.'</td>
+                                    <td style="text-align: center;padding: 5px;">'.$payment_transaction_id.'</td>
+                                    <td style="text-align: center;padding: 5px;">'.$trans_id.'</td>
+                                    <td style="text-align: center;padding: 5px;">'.$amount.'</td>
                                 </tr>
                                 <tr>
                                     <td colspan="5" width="400" style="text-align: right;padding: 5px;"><strong>JUMLAH</strong></td>
-                                    <td width="85" style="text-align: center;padding: 5px;"><strong>'.$_POST['amount'].'</strong></td>
+                                    <td width="85" style="text-align: center;padding: 5px;"><strong>'.$amount.'</strong></td>
                                 </tr>
                             </tbody>
                         </table>
@@ -219,17 +219,17 @@ if(isset($_POST['payload'])) {
                                 <tr>
                                     <td width="132">Ringgit Malaysia</td>
                                     <td width="10">:</td>
-                                    <td width="522">'.convertMoney($_POST['amount']).'</td>
+                                    <td width="522">'.convertMoney($amount).'</td>
                                 </tr>
                                 <tr>
                                     <td width="132">Catatan</td>
                                     <td width="10">:</td>
-                                    <td width="522">'.strtoupper($_POST['catatan']).'</td>
+                                    <td width="522">'.strtoupper($catatan).'</td>
                                 </tr>
                                 <tr>
                                     <td width="132">Jabatan</td>
                                     <td width="10">:</td>
-                                    <td width="">'.strtoupper($_POST['nama_agensi']).'</td>
+                                    <td width="">'.strtoupper($nama_agensi).'</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -243,8 +243,7 @@ if(isset($_POST['payload'])) {
                         <p>No. Kelulusan Perbendaharaan : PKN/BNPs/2021<br>Resit ini dijana oleh Portal eBayar Perlis</p>';
                         $html .= '</page>';
                         $html2pdf->writeHTML($html);
-                        $html2pdf->output( __DIR__.'/resit/'.$_POST['trans_id'].'.pdf', 'F');
-                        echo '1';
+                        $html2pdf->output( __DIR__.'/resit/'.$trans_id.'.pdf', 'F');
                     } catch (Html2PdfException $e) {
                         $html2pdf->clean();
                         $formatter = new ExceptionFormatter($e);
