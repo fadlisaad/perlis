@@ -303,7 +303,7 @@ if(isset($_POST['payload'])) {
                                             <?php endif; ?>
                                             <tr>
                                                 <td>
-                                                    <a href="https://ebayar.perlis.gov.my/resit/<?php echo $trans_id.'.pdf' ?>" class="btn bg-biru text-white d-print-none" target="_blank"><i class="fa fa-print"></i> Cetak</a>
+                                                    <a href="<?php echo $config['base_url'].'/resit/'.$trans_id.'.pdf' ?>" class="btn bg-biru text-white d-print-none" target="_blank"><i class="fa fa-print"></i> Cetak</a>
                                                 </td>
                                             </tr>
                                         </tbody>
