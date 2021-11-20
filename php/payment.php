@@ -143,14 +143,6 @@ class Payment
         
         if($_POST['STATUS'] == '1'){
 
-            // generate PDF receipt
-
-            $client = new Client();
-            $options = ['form_params' => [$_POST]];
-            
-            $response = $client->request('POST', $this->config['base_url'].'/php/generate-resit.php', $options);
-            $pdf = $response->getBody();
-
             $fpx_data = [
                 'status' => $_POST['STATUS'],
                 'status_code' => $_POST['STATUS_CODE'],
@@ -165,8 +157,36 @@ class Payment
                 'trans_id' => $_POST['TRANS_ID'],
                 'approval_code' => $_POST['APPROVAL_CODE'],
                 'buyer_bank' => $_POST['BUYER_BANK'],
-                'buyer_name' => $_POST['BUYER_NAME']
+                'buyer_name' => $_POST['BUYER_NAME'],
+                'receipt_no' => $_POST['RECEIPT_NO'],
+                'nama' => $_POST['nama'],
+                'nric' => $_POST['nric'],
+                'telefon' => $_POST['telefon'],
+                'kod_agensi' => $_POST['kod_agensi'],
+                'nama_agensi' => $_POST['nama_agensi'],
+                'jenis_pembayaran' => $_POST['jenis_pembayaran'],
+                'alamat' => $_POST['alamat'],
+                'cukai' => $_POST['cukai'],
+                'catatan' => $_POST['catatan'],
+                'agency_email' => $_POST['agency_email'],
+                'email' => $_POST['email']
             ];
+
+            // generate PDF receipt
+
+            $client = new Client();
+            $formData = null;
+            foreach ($input as $k => $v) {
+                $formData[$k] = $v;
+            }
+            $options = [
+                'form_params' => $fpx_data
+            ];
+
+            //print_r($options);die;
+            
+            $response = $client->request('POST', $this->config['base_url'].'/php/generate-resit.php', $options);
+            $pdf = $response->getBody();
 
             $payment = $pdo->prepare("INSERT INTO payments (amount, status_code, status_message, payment_transaction_id, payment_datetime, buyer_name, buyer_bank, merchant_order_no) VALUES (:amount, :status_code, :status_message, :payment_transaction_id, :payment_datetime, :buyer_name, :buyer_bank, :merchant_order_no)");
             $payment->bindValue(":amount", $fpx_data['amount']);

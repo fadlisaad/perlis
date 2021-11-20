@@ -41,7 +41,7 @@ try {
 				<td>&nbsp;</td>
 				<td><strong>Tarikh</strong></td>
 				<td>:</td>
-				<td>'.date('d-m-Y', strtotime($_POST['PAYMENT_DATETIME'])).'</td>
+				<td>'.date('d-m-Y', strtotime($_POST['payment_datetime'])).'</td>
 			</tr>
 		</tbody>
 	</table>
@@ -92,14 +92,14 @@ try {
 			<tr>
 				<td style="text-align: center;padding: 5px;">1.</td>
 				<td style="text-align: left;padding: 5px;"><div style="width: 150px;">'.strtoupper($_POST['jenis_pembayaran']).'<br>'.$_POST['cukai'].'</div></td>
-				<td style="text-align: center;padding: 5px;">'.strtoupper($_POST['PAYMENT_MODE']).'<br>'.$_POST['BUYER_BANK'].'</td>
-				<td style="text-align: center;padding: 5px;">'.$_POST['PAYMENT_TRANS_ID'].'</td>
-				<td style="text-align: center;padding: 5px;">'.$_POST['TRANS_ID'].'</td>
-				<td style="text-align: center;padding: 5px;">'.$_POST['AMOUNT'].'</td>
+				<td style="text-align: center;padding: 5px;">'.strtoupper($_POST['payment_mode']).'<br>'.$_POST['buyer_bank'].'</td>
+				<td style="text-align: center;padding: 5px;">'.$_POST['payment_transaction_id'].'</td>
+				<td style="text-align: center;padding: 5px;">'.$_POST['trans_id'].'</td>
+				<td style="text-align: center;padding: 5px;">'.$_POST['amount'].'</td>
 			</tr>
 			<tr>
 				<td colspan="5" width="400" style="text-align: right;padding: 5px;"><strong>JUMLAH</strong></td>
-				<td width="85" style="text-align: center;padding: 5px;"><strong>'.$_POST['AMOUNT'].'</strong></td>
+				<td width="85" style="text-align: center;padding: 5px;"><strong>'.$_POST['amount'].'</strong></td>
 			</tr>
 		</tbody>
 	</table>
@@ -111,7 +111,7 @@ try {
 			<tr>
 				<td width="132">Ringgit Malaysia</td>
 				<td width="10">:</td>
-				<td width="522">'.convertMoney($_POST['AMOUNT']).'</td>
+				<td width="522">'.convertMoney($_POST['amount']).'</td>
 			</tr>
 			<tr>
 				<td width="132">Catatan</td>
@@ -135,7 +135,7 @@ try {
 	<p>No. Kelulusan Perbendaharaan : PKN/BNPs/2021<br>Resit ini dijana oleh Portal eBayar Perlis</p>';
 	$html .= '</page>';
 	$html2pdf->writeHTML($html);
-	$html2pdf->output( __DIR__.'/../resit/'.$_POST['TRANS_ID'].'.pdf', 'F');
+	$html2pdf->output( __DIR__.'/../resit/'.$_POST['trans_id'].'.pdf', 'F');
 } catch (Html2PdfException $e) {
     $html2pdf->clean();
     $formatter = new ExceptionFormatter($e);
