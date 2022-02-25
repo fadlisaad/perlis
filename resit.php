@@ -201,7 +201,7 @@ if(isset($_POST['payload'])) {
                                     <td style="text-align: center;padding: 5px;">1.</td>
                                     <td style="text-align: left;padding: 5px;"><div style="width: 150px;">'.strtoupper($jenis_pembayaran).'<br>'.$cukai.'</div></td>
                                     <td style="text-align: center;padding: 5px;">'.strtoupper($payment_mode).'<br>'.$buyer_bank.'</td>
-                                    <td style="text-align: center;padding: 5px;">'.$payment_transaction_id.'</td>
+                                    <td style="text-align: center;padding: 5px;">'.$payment_trans_id.'</td>
                                     <td style="text-align: center;padding: 5px;">'.$trans_id.'</td>
                                     <td style="text-align: center;padding: 5px;">'.$amount.'</td>
                                 </tr>
