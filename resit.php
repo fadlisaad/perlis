@@ -117,26 +117,12 @@ if(isset($_POST['payload'])) {
                     try {
                         $html2pdf = new Html2Pdf('P', 'A4', 'en');
                         $html = '<page backtop="7mm" backbottom="7mm" backleft="10mm" backright="10mm">';
-                        $html .= '<table border="0" cellspacing="0" cellpadding="0">
-                        <tbody>
-                        <tr>
-                        <td style="text-align: center;" width="700"><img src="images/jata.png"></td>
-                        </tr>
-                        <tr>
-                        <td style="text-align: center;" width="700">&nbsp;</td>
-                        </tr>
-                        <tr>
-                        <td style="text-align: center;" width="700"><h4>KERAJAAN NEGERI PERLIS<br>RESIT RASMI<br>ASAL</h4></td>
-                        </tr>
-                        <tr>
-                        <td style="text-align: center;" width="700">&nbsp;</td>
-                        </tr>
-                        </tbody>
-                        </table>
-                        <table border="0" cellspacing="0" cellpadding="0">
+                        $html .= '<p style="text-align: center;"><img src="images/jata.png"></p>
+                        <h4 style="text-align: center;">KERAJAAN NEGERI PERLIS<br>RESIT RASMI<br>ASAL</h4>
+                        <table border="0" cellspacing="0" cellpadding="0" style="table-layout: fixed; width: 100%;">
                             <tbody>
                                 <tr>
-                                    <td width="450">&nbsp;</td>
+                                    <td style="width:60%;">&nbsp;</td>
                                     <td colspan="3"><strong>(Kew. 38E - Pin.1/2021)</strong></td>
                                 </tr>
                                 <tr>
@@ -151,10 +137,16 @@ if(isset($_POST['payload'])) {
                                     <td>:</td>
                                     <td>'.date('d-m-Y', strtotime($payment_datetime)).'</td>
                                 </tr>
+                                <tr>
+                                    <td>&nbsp;</td>
+                                    <td><strong>ID Transaksi</strong></td>
+                                    <td>:</td>
+                                    <td>'.$trans_id.'</td>
+                                </tr>
                             </tbody>
                         </table>
             
-                        <table border="0" width="800" cellspacing="0" cellpadding="0">
+                        <table border="0" cellspacing="0" cellpadding="0" style="table-layout: fixed; width: 100%;">
                             <tbody>
                                 <tr>
                                     <td width="132"><strong>Diterima daripada</strong></td>
@@ -187,14 +179,13 @@ if(isset($_POST['payload'])) {
                             </tbody>
                         </table>
             
-                        <table border="0.5" cellspacing="0" cellpadding="0" style="table-layout: fixed; width: 750px">
+                        <table border="0.5" cellspacing="0" cellpadding="0" style="table-layout: fixed; width: 100%;">
                             <tbody>
                                 <tr style="background:#f2f2f2;text-align: center;">
                                     <td width="38"><strong>Bil.</strong></td>
-                                    <td width="160"><strong>Perihal Pembayaran</strong></td>
+                                    <td width="260"><strong>Perihal Pembayaran</strong></td>
                                     <td width="102"><strong>Cara Pembayaran / Bank Pembayar</strong></td>
                                     <td width="144"><strong>Rujukan Pembayaran</strong></td>
-                                    <td width="100"><strong>ID Transaksi</strong></td>
                                     <td width="50"><strong>Amaun (RM)</strong></td>
                                 </tr>
                                 <tr>
@@ -202,16 +193,15 @@ if(isset($_POST['payload'])) {
                                     <td style="text-align: left;padding: 5px;"><div style="width: 150px;">'.strtoupper($jenis_pembayaran).'<br>'.$cukai.'</div></td>
                                     <td style="text-align: center;padding: 5px;">'.strtoupper($payment_mode).'<br>'.$buyer_bank.'</td>
                                     <td style="text-align: center;padding: 5px;">'.$payment_trans_id.'</td>
-                                    <td style="text-align: center;padding: 5px;">'.$trans_id.'</td>
                                     <td style="text-align: center;padding: 5px;">'.$amount.'</td>
                                 </tr>
                                 <tr>
-                                    <td colspan="5" width="400" style="text-align: right;padding: 5px;"><strong>JUMLAH</strong></td>
+                                    <td colspan="4" width="400" style="text-align: right;padding: 5px;"><strong>JUMLAH</strong></td>
                                     <td width="85" style="text-align: center;padding: 5px;"><strong>'.$amount.'</strong></td>
                                 </tr>
                             </tbody>
                         </table>
-                        <table border="0" width="800" cellspacing="0" cellpadding="0">
+                        <table border="0" width="800" cellspacing="0" cellpadding="0" style="table-layout: fixed; width: 100%;">
                             <tbody>
                                 <tr>
                                     <td colspan="3">&nbsp;</td>
