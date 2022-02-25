@@ -79,4 +79,15 @@ switch ($id) {
         return $payment->response($data);
 		
 	break;
+
+    case 'resend-resit':
+	
+		require_once('php/resit.php');
+		$resit = new Receipt();
+
+		$data = $_POST['resit'];
+
+		return $resit->process($data);
+		
+	break;
 }
