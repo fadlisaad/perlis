@@ -143,8 +143,8 @@ if($config['fpx']['environment'] == 'Staging'){
                                         <input type="text" class="form-control" name="alamat" placeholder="Alamat penghantaran (Harumanis)">
                                     </div>
                                     <div class="form-group" id="cukai" style="display:none;">
-                                        <label for="cukai">No. Cukai Tanah / No. Akaun <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="cukai" placeholder="No. Cukai Tanah / No. Akaun">
+                                        <label for="cukai">No. Cukai Tanah / No. Akaun Hak Milik <span class="text-danger">*</span></label>
+                                        <input type="text" class="form-control" name="cukai" placeholder="No. Cukai Tanah / No. Akaun Hak Milik">
                                     </div>
                                     <small id="emailHelp" class="form-text text-muted">Ruangan bertanda * adalah wajib diisi.</small>
                                 </div>
