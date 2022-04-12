@@ -97,13 +97,13 @@ if($config['fpx']['environment'] == 'Staging'){
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="payment_type">Agensi <span class="text-danger">*</span></label>
-                                        <select name="agency" id="agency" class="custom-select agency" required>
+                                        <select name="agency" id="agency" class="custom-select agency" required oninvalid="setCustomValidity('Sila pilih agensi')" oninput="setCustomValidity('')">
                                             <option value="">- Pilih Agensi -</option>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="payment_type">Jenis Pembayaran <span class="text-danger">*</span></label>
-                                        <select name="service" id="service" class="custom-select service" required>
+                                        <select name="service" id="service" class="custom-select service" required oninvalid="setCustomValidity('Sila pilih jenis pembayaran')" oninput="setCustomValidity('')">
                                             <option value="">- Pilih Jenis Pembayaran -</option>
                                         </select>
                                         <input type="hidden" name="TRANS_ID" id="TRANS_ID">
@@ -112,27 +112,27 @@ if($config['fpx']['environment'] == 'Staging'){
                                     </div>
                                     <div class="form-group">
                                         <label for="amount">Jumlah (RM) <span class="text-danger">*</span></label>
-                                        <input type="number" min="1.00" step="0.01" class="form-control" name="amount" placeholder="Amaun/jumlah" required="" pattern="[-+]?[0-9]*[.,]?[0-9]+" id="amount">
+                                        <input type="number" min="1.00" step="0.01" class="form-control" name="amount" placeholder="Amaun/jumlah" required="" pattern="[-+]?[0-9]*[.,]?[0-9]+" id="amount" oninvalid="setCustomValidity('Sila masukkan jumlah yang ingin dibayar')" oninput="setCustomValidity('')">
                                         <p id="warning-message" class="text-danger"></p>
 
                                     </div>
                                     <div class="form-group">
                                         <label for="nama">Nama <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="nama" placeholder="Nama pembayar" required="" pattern=".{3,}">
+                                        <input type="text" class="form-control" name="nama" placeholder="Nama pembayar" required="" pattern=".{3,}" oninvalid="setCustomValidity('Sila masukkan nama penuh anda')" oninput="setCustomValidity('')">
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="nric">No. Kad Pengenalan <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="nric" placeholder="XXXXXX-XX-XXXX" required="" pattern=".{12,}">
+                                            <input type="text" class="form-control" name="nric" placeholder="XXXXXX-XX-XXXX" required="" pattern=".{12,}" oninvalid="setCustomValidity('Sila masukkan nombor kad pengenalan anda')" oninput="setCustomValidity('')">
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="telefon">No. Telefon <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="telefon" placeholder="01XXXXXXXX" required="" pattern=".{7,}">
+                                            <input type="text" class="form-control" name="telefon" placeholder="01XXXXXXXX" required="" pattern=".{7,}" oninvalid="setCustomValidity('Sila nasukkan nombor telefon anda')" oninput="setCustomValidity('')">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">E-mail <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Alamat e-mail anda" required="">
+                                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Alamat e-mail anda" required="" oninvalid="setCustomValidity('Sila masukkan alamat email anda bagi tujuan penghantaran resit pembayaran')" oninput="setCustomValidity('')">
                                     </div>
                                     <div class="form-group">
                                         <label for="catatan">Catatan</label>
@@ -140,11 +140,11 @@ if($config['fpx']['environment'] == 'Staging'){
                                     </div>
                                     <div class="form-group" id="alamat" style="display:none;">
                                         <label for="alamat">Alamat Rumah (Harumanis) <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="alamat" placeholder="Alamat penghantaran (Harumanis)" required="">
+                                        <textarea class="form-control" name="alamat" rows="5" placeholder="Alamat penghantaran (Harumanis)" required="" oninvalid="setCustomValidity('Sila masukkan alamat penghantaran')" oninput="setCustomValidity('')"></textarea>
                                     </div>
                                     <div class="form-group" id="cukai" style="display:none;">
                                         <label for="cukai">No. Akaun <span class="text-danger">*</span> (Contoh:- 90123456789012)</label>
-                                        <input type="text" class="form-control" name="cukai" placeholder="14 digit No. Cukai Tanah / No. Akaun Hak Milik" required="" minlength="14" maxlength="14">
+                                        <input type="text" class="form-control" name="cukai" placeholder="14 digit No. Cukai Tanah / No. Akaun Hak Milik" required="" minlength="14" maxlength="14" oninvalid="setCustomValidity('Sila isikan 14 digit No. Cukai Tanah / No. Akaun Hak Milik')" oninput="setCustomValidity('')">
                                     </div>
                                     <small id="emailHelp" class="form-text text-muted">Ruangan bertanda * adalah wajib diisi.</small>
                                 </div>
@@ -223,7 +223,7 @@ if($config['fpx']['environment'] == 'Staging'){
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
-                            <p class="text-white">&copy; 2021 Hakcipta Terpelihara Perbendaharaan Negeri Perlis</p>
+                            <p class="text-white">&copy; 2022 Hakcipta Terpelihara Perbendaharaan Negeri Perlis</p>
                         </div>
                     </div>
                     <!-- end col -->
