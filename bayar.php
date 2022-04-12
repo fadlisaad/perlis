@@ -140,11 +140,11 @@ if($config['fpx']['environment'] == 'Staging'){
                                     </div>
                                     <div class="form-group" id="alamat" style="display:none;">
                                         <label for="alamat">Alamat Rumah (Harumanis) <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="alamat" placeholder="Alamat penghantaran (Harumanis)">
+                                        <input type="text" class="form-control" name="alamat" placeholder="Alamat penghantaran (Harumanis)" required="">
                                     </div>
                                     <div class="form-group" id="cukai" style="display:none;">
                                         <label for="cukai">No. Akaun <span class="text-danger">*</span> (Contoh:- 90123456789012)</label>
-                                        <input type="text" class="form-control" name="cukai" placeholder="No. Cukai Tanah / No. Akaun Hak Milik">
+                                        <input type="text" class="form-control" name="cukai" placeholder="14 digit No. Cukai Tanah / No. Akaun Hak Milik" required="" minlength="14" maxlength="14">
                                     </div>
                                     <small id="emailHelp" class="form-text text-muted">Ruangan bertanda * adalah wajib diisi.</small>
                                 </div>
