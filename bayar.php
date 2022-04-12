@@ -140,11 +140,11 @@ if($config['fpx']['environment'] == 'Staging'){
                                     </div>
                                     <div class="form-group" id="alamat" style="display:none;">
                                         <label for="alamat">Alamat Rumah (Harumanis) <span class="text-danger">*</span></label>
-                                        <textarea class="form-control" name="alamat" rows="5" placeholder="Alamat penghantaran (Harumanis)" required="" oninvalid="setCustomValidity('Sila masukkan alamat penghantaran')" oninput="setCustomValidity('')"></textarea>
+                                        <textarea class="form-control" name="alamat" rows="5" placeholder="Alamat penghantaran (Harumanis)" oninvalid="setCustomValidity('Sila masukkan alamat penghantaran')" oninput="setCustomValidity('')" id="input-alamat"></textarea>
                                     </div>
                                     <div class="form-group" id="cukai" style="display:none;">
                                         <label for="cukai">No. Akaun <span class="text-danger">*</span> (Contoh:- 90123456789012)</label>
-                                        <input type="text" class="form-control" name="cukai" placeholder="14 digit No. Cukai Tanah / No. Akaun Hak Milik" required="" minlength="14" maxlength="14" oninvalid="setCustomValidity('Sila isikan 14 digit No. Cukai Tanah / No. Akaun Hak Milik')" oninput="setCustomValidity('')">
+                                        <input type="text" class="form-control" name="cukai" placeholder="14 digit No. Cukai Tanah / No. Akaun Hak Milik" minlength="14" maxlength="14" oninvalid="setCustomValidity('Sila isikan 14 digit No. Cukai Tanah / No. Akaun Hak Milik')" oninput="setCustomValidity('')" id="input-cukai">
                                     </div>
                                     <small id="emailHelp" class="form-text text-muted">Ruangan bertanda * adalah wajib diisi.</small>
                                 </div>
@@ -366,13 +366,17 @@ if($config['fpx']['environment'] == 'Staging'){
 
                     if(agency_code == 6 && service_code == 2){
                         $('#alamat').show();
+                        $('#input-alamat').attr('required',true);
                     } else {
                         $('#alamat').hide().val('');
+                        $('#input-alamat').attr('required',false);
                     }
                     if(agency_code == 16 && service_code == 1){
                         $('#cukai').show();
+                        $('#input-cukai').attr('required',true);
                     } else {
                         $('#cukai').hide().val('');
+                        $('#input-cukai').attr('required',false);
                     }
                     var timestamp = '<?php echo date('Ymd') ?>';
                     $('#TRANS_ID').val(agency + '-' + service_code + '-' + timestamp);
