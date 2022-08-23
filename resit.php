@@ -347,7 +347,10 @@ if(isset($_POST['payload'])) {
                 $mail->addReplyTo($config['email']['username'], $config['email']['from']);
                 $mail->addAddress($email, $nama);
                 if($config['fpx']['environment'] == 'Production'){
-                    $mail->addCC($_POST['agency_email']);
+                    $agency_mails = explode('|', $_POST['agency_email']);
+                    foreach($agency_mails as $mail){
+                        $mail->addCC($mail);
+                    }
                 }
                 $mail->Subject = 'Status Pembayaran di E-Bayar Perlis';
                 $mail->AddAttachment('resit/'.$trans_id.'.pdf', 'Resit-eBayar-'.$trans_id.'.pdf');
@@ -373,7 +376,7 @@ if(isset($_POST['payload'])) {
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="text-center">
-                            <p class="text-white">&copy; 2021 Hakcipta Terpelihara Perbendaharaan Negeri Perlis</p>
+                            <p class="text-white">&copy; 2021-2022 Hakcipta Terpelihara Perbendaharaan Negeri Perlis</p>
                         </div>
                     </div>
                     <!-- end col -->
