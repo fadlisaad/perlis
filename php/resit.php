@@ -38,7 +38,7 @@ class Receipt
             if($rows){
 
             } else {
-                return 'Tiada no resit dalam simpanan transaksi kami. Sila semak semula'
+                return 'Tiada no resit dalam simpanan transaksi kami. Sila semak semula';
             }
 
         } else {
