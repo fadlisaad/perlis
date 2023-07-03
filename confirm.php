@@ -107,7 +107,7 @@
 
                             <dl class="row">
                                 <dt class="col-md-4">ID Transaksi</dt>
-                                <dd class="col-md-8"><?php echo $row_agency['TRANS_ID'] ?? '' ?></dd>
+                                <dd class="col-md-8"><?php echo $_POST['TRANS_ID'] ?? '' ?></dd>
 
                                 <dt class="col-md-4">Agensi</dt>
                                 <dd class="col-md-8"><?php echo $row_agency['name'] ?? '' ?></dd>
