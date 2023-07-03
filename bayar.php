@@ -379,7 +379,7 @@ if($config['fpx']['environment'] == 'Staging'){
                         $('#input-cukai').attr('required',false);
                     }
                     var timestamp = '<?php echo date('ymd') ?>';
-                    $('#TRANS_ID').val(agency + '-' + service_code + '-' + timestamp);
+                    $('#TRANS_ID').val(agency + service_code + '-' + timestamp);
                 });
 
             });
