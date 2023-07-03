@@ -39,101 +39,107 @@ class FPX
 
 			$data = $this->get_checksum($mode);
 			$content = $this->get_response($url, $data);
-			$token = strtok($content, "&");
 
-			while ($token !== false) {
-				list($key, $value) = explode("=", $token);
-				$value = urldecode($value);
-				$response_value[$key] = $value;
-				$token = strtok("&");
-			}
+			if($content != 'ERROR'){
 
-			$fpx_msgToken = reset($response_value);
+				$token = strtok($content, "&");
 
-			$token = strtok($response_value['fpx_bankList'], ",");
+				while ($token !== false) {
+					list($key, $value) = explode("=", $token);
+					$value = urldecode($value);
+					$response_value[$key] = $value;
+					$token = strtok("&");
+				}
 
-			while ($token !== false) {
-				list($key, $value) = explode("~", $token);
-				$value = urldecode($value);
-				$bank_list[$key] = $value;
-				$token = strtok(",");
-			}
+				$fpx_msgToken = reset($response_value);
 
-			$be_message = $response_value['fpx_bankList']."|".$fpx_msgToken."|".$response_value['fpx_msgType']."|".$response_value['fpx_sellerExId'];
+				$token = strtok($response_value['fpx_bankList'], ",");
 
-			if ($mode == '01'){
-				$cimb = 'CIMB Clicks';
+				while ($token !== false) {
+					list($key, $value) = explode("~", $token);
+					$value = urldecode($value);
+					$bank_list[$key] = $value;
+					$token = strtok(",");
+				}
+
+				$be_message = $response_value['fpx_bankList']."|".$fpx_msgToken."|".$response_value['fpx_msgType']."|".$response_value['fpx_sellerExId'];
+
+				if ($mode == '01'){
+					$cimb = 'CIMB Clicks';
+				} else {
+					$cimb = 'CIMB Bank';
+				}
+
+				$bank_name = [
+					'TEST0021' => 'SBI Bank A',
+					'TEST0022' => 'SBI Bank B',
+					'TEST0023' => 'SBI Bank C',
+					'ABB0234' => 'Affin B2C - Test ID',
+					'ABB0233' => 'Affin Bank',
+					'ABB0232' => 'Affin Bank',
+					'ABB0235' => 'AFFINMAX',
+					'ABMB0212' => 'Alliance Bank (Personal)',
+					'ABMB0213' => 'Alliance Bank (Business)',
+					'AGRO01' => 'AGRONet',
+					'AGRO02' => 'AGRONetBiz',
+					'AMBB0208' => 'AmBank',
+					'AMBB0209' => 'AmBank',
+					'BIMB0340' => 'Bank Islam',
+					'BKRM0602' => 'Bank Rakyat',
+					'BKRM0602' => 'i-bizRAKYAT',
+					'BMMB0341' => 'Bank Muamalat',
+					'BMMB0342' => 'Bank Muamalat',
+					'BNP003' => 'BNP Paribas',
+					'BSN0601' => 'BSN',
+					'BCBB0235' => $cimb,
+					'CIT0218' => 'Citibank Corporate Banking',
+					'CIT0219' => 'Citibank',
+					'DBB0199' => 'Deutsche Bank',
+					'HLB0224' => 'Hong Leong Bank',
+					'HSBC0223' => 'HSBC Bank',
+					'KFH0346' => 'KFH',
+					'MB2U0227' => 'Maybank2U',
+					'MBB0228' => 'Maybank2E',
+					'OCBC0229' => 'OCBC Bank',
+					'PBB0233' => 'Public Bank',
+					'PBB0234' => 'PB Enterprise',
+					'RHB0218' => 'RHB Bank',
+					'SCB0215' => 'Standard Chartered',
+					'SCB0216' => 'Standard Chartered',
+					'UOB0226' => 'UOB Bank',
+					'UOB0228' => 'UOB Regional',
+					'UOB0229' => 'UOB Bank - Test ID',
+					'BOCM01' => 'Bank of China (Malaysia)'
+				];
+
+				foreach ($bank_list as $key => $value) {
+					if ($value == 'B') $value = ' (Offline)'; else $value = '';
+					if(isset($bank_name[$key])) 
+						$bank_list[$key] = $bank_name[$key].$value;
+					else
+						$bank_list[$key] = $key.$value;
+				}
+
+				asort($bank_list);
+
+				# store bank list for drop down select
+				file_put_contents($file, json_encode($bank_list));
+
+				#store bank list for BE message
+				file_put_contents($be_file, json_encode($be_message));
 			} else {
-				$cimb = 'CIMB Bank';
+				return $content;
 			}
-
-			$bank_name = [
-				'TEST0021' => 'SBI Bank A',
-				'TEST0022' => 'SBI Bank B',
-				'TEST0023' => 'SBI Bank C',
-				'ABB0234' => 'Affin B2C - Test ID',
-				'ABB0233' => 'Affin Bank',
-				'ABB0232' => 'Affin Bank',
-				'ABB0235' => 'AFFINMAX',
-				'ABMB0212' => 'Alliance Bank (Personal)',
-				'ABMB0213' => 'Alliance Bank (Business)',
-				'AGRO01' => 'AGRONet',
-				'AGRO02' => 'AGRONetBiz',
-				'AMBB0208' => 'AmBank',
-				'AMBB0209' => 'AmBank',
-				'BIMB0340' => 'Bank Islam',
-				'BKRM0602' => 'Bank Rakyat',
-				'BKRM0602' => 'i-bizRAKYAT',
-				'BMMB0341' => 'Bank Muamalat',
-				'BMMB0342' => 'Bank Muamalat',
-				'BNP003' => 'BNP Paribas',
-				'BSN0601' => 'BSN',
-				'BCBB0235' => $cimb,
-				'CIT0218' => 'Citibank Corporate Banking',
-				'CIT0219' => 'Citibank',
-				'DBB0199' => 'Deutsche Bank',
-				'HLB0224' => 'Hong Leong Bank',
-				'HSBC0223' => 'HSBC Bank',
-				'KFH0346' => 'KFH',
-				'MB2U0227' => 'Maybank2U',
-				'MBB0228' => 'Maybank2E',
-				'OCBC0229' => 'OCBC Bank',
-				'PBB0233' => 'Public Bank',
-				'PBB0234' => 'PB Enterprise',
-				'RHB0218' => 'RHB Bank',
-				'SCB0215' => 'Standard Chartered',
-				'SCB0216' => 'Standard Chartered',
-				'UOB0226' => 'UOB Bank',
-				'UOB0228' => 'UOB Regional',
-				'UOB0229' => 'UOB Bank - Test ID',
-				'BOCM01' => 'Bank of China (Malaysia)'
-			];
-
-			foreach ($bank_list as $key => $value) {
-				if ($value == 'B') $value = ' (Offline)'; else $value = '';
-				if(isset($bank_name[$key])) 
-					$bank_list[$key] = $bank_name[$key].$value;
-				else
-					$bank_list[$key] = $key.$value;
-			}
-
-			asort($bank_list);
-
-			# store bank list for drop down select
-			file_put_contents($file, json_encode($bank_list));
-
-			#store bank list for BE message
-			file_put_contents($be_file, json_encode($be_message));
 		}
 		
 		$content = array();
-		$content['bank_list'] = $bank_list;
-		$content['be_message'] = $be_message;
+		$content['bank_list'] = @$bank_list;
+		$content['be_message'] = @$be_message;
 
 		return $content;
 	}
 
-	private function get_checksum($mode)
+	public function get_checksum($mode)
 	{
 		$msgToken = $mode;
 		$msgType = 'BE';
