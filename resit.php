@@ -109,7 +109,7 @@ if(isset($_POST['payload'])) {
                     $nric = $purifier->purify($_POST['nric']);
                     $telefon = $purifier->purify($_POST['telefon']);
                     $email = $purifier->purify($_POST['email']);
-                    $jenis_pembayaran = $purifier->purify($_POST['jenis_pembayaran']);
+                    $jenis_pembayaran = $_POST['jenis_pembayaran'];
                     $nama_agensi = $purifier->purify($_POST['nama_agensi']);
                     $catatan = $purifier->purify($_POST['catatan']);
                     $cukai = $purifier->purify($_POST['cukai']);
