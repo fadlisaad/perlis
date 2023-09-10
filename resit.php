@@ -282,11 +282,11 @@ if(isset($_POST['payload'])) {
                                                     </ul>
                                                 </td>
                                             </tr>
-                                            <?php if($_POST['STATUS'] == 1): $msg = "Pembayaran anda telah diterima. Jika anda mempunyai sebarang pertanyaan, sila hubungi Perbendaharaan Negeri Perlis di ebayar@perlis.gov.my"; ?>
+                                            <?php if($_POST['STATUS'] == 1): $msg = "Pembayaran anda telah diterima. Jika anda mempunyai sebarang pertanyaan, sila hubungi Perbendaharaan Negeri Perlis di ebayar@perlis.gov.my atau ".$_POST['agency_email']; ?>
                                             <tr>
                                                 <td><div class="alert alert-info"><?php echo $msg ?></div></td>
                                             </tr>
-                                            <?php else: $msg = "Pembayaran anda tidak berjaya. Sila cuba semula. Jika anda mempunyai sebarang pertanyaan, sila hubungi Perbendaharaan Negeri Perlis di ebayar@perlis.gov.my"; ?>
+                                            <?php else: $msg = "Pembayaran anda tidak berjaya. Sila cuba semula. Jika anda mempunyai sebarang pertanyaan, sila hubungi Perbendaharaan Negeri Perlis di ebayar@perlis.gov.my atau ".$_POST['agency_email']; ?>
                                             <tr>
                                                 <td><div class="alert alert-warning"><?php echo $msg ?></div></td>
                                             </tr>
@@ -346,12 +346,7 @@ if(isset($_POST['payload'])) {
                 $mail->setFrom($config['email']['username'], $config['email']['from']);
                 $mail->addReplyTo($config['email']['username'], $config['email']['from']);
                 $mail->addAddress($email, $nama);
-                if($config['fpx']['environment'] == 'Production'){
-                    $agency_mails = explode('|', $_POST['agency_email']);
-                    foreach($agency_mails as $mail){
-                        $mail->addCC($mail);
-                    }
-                }
+                $mail->addCC($mail);
                 $mail->Subject = 'Status Pembayaran di E-Bayar Perlis';
                 $mail->AddAttachment('resit/'.$trans_id.'.pdf', 'Resit-eBayar-'.$trans_id.'.pdf');
                 $mail->isHTML(true);
