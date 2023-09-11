@@ -110,8 +110,8 @@ if(isset($_POST['payload'])) {
                     $telefon = $purifier->purify($_POST['telefon']);
                     $email = $purifier->purify($_POST['email']);
                     $jenis_pembayaran = $_POST['jenis_pembayaran'];
-                    $nama_agensi = $purifier->purify($_POST['nama_agensi']);
-                    $email_agensi = $purifier->purify($_POST['agency_email']);
+                    $nama_agensi = $_POST['nama_agensi'];
+                    $email_agensi = $_POST['agency_email'];
                     $catatan = $purifier->purify($_POST['catatan']);
                     $cukai = $purifier->purify($_POST['cukai']);
 
