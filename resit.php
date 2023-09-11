@@ -111,6 +111,7 @@ if(isset($_POST['payload'])) {
                     $email = $purifier->purify($_POST['email']);
                     $jenis_pembayaran = $_POST['jenis_pembayaran'];
                     $nama_agensi = $purifier->purify($_POST['nama_agensi']);
+                    $email_agensi = $purifier->purify($_POST['email_agensi']);
                     $catatan = $purifier->purify($_POST['catatan']);
                     $cukai = $purifier->purify($_POST['cukai']);
 
@@ -282,11 +283,11 @@ if(isset($_POST['payload'])) {
                                                     </ul>
                                                 </td>
                                             </tr>
-                                            <?php if($_POST['STATUS'] == 1): $msg = "Pembayaran anda telah diterima. Jika anda mempunyai sebarang pertanyaan, sila hubungi Perbendaharaan Negeri Perlis di ebayar@perlis.gov.my atau ".$_POST['agency_email']; ?>
+                                            <?php if($_POST['STATUS'] == 1): $msg = "Pembayaran anda telah diterima. Jika anda mempunyai sebarang pertanyaan, sila hubungi Perbendaharaan Negeri Perlis di ebayar@perlis.gov.my atau ".$email_agensi; ?>
                                             <tr>
                                                 <td><div class="alert alert-info"><?php echo $msg ?></div></td>
                                             </tr>
-                                            <?php else: $msg = "Pembayaran anda tidak berjaya. Sila cuba semula. Jika anda mempunyai sebarang pertanyaan, sila hubungi Perbendaharaan Negeri Perlis di ebayar@perlis.gov.my atau ".$_POST['agency_email']; ?>
+                                            <?php else: $msg = "Pembayaran anda tidak berjaya. Sila cuba semula. Jika anda mempunyai sebarang pertanyaan, sila hubungi Perbendaharaan Negeri Perlis di ebayar@perlis.gov.my atau ".$email_agensi; ?>
                                             <tr>
                                                 <td><div class="alert alert-warning"><?php echo $msg ?></div></td>
                                             </tr>
@@ -346,7 +347,7 @@ if(isset($_POST['payload'])) {
                 $mail->setFrom($config['email']['username'], $config['email']['from']);
                 $mail->addReplyTo($config['email']['username'], $config['email']['from']);
                 $mail->addAddress($email, $nama);
-                $mail->addCC($_POST['agency_email']);
+                $mail->addCC($email_agensi);
                 $mail->Subject = 'Status Pembayaran di E-Bayar Perlis';
                 $mail->AddAttachment('resit/'.$trans_id.'.pdf', 'Resit-eBayar-'.$trans_id.'.pdf');
                 $mail->isHTML(true);
