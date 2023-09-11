@@ -347,7 +347,7 @@ if(isset($_POST['payload'])) {
                 $mail->setFrom($config['email']['username'], $config['email']['from']);
                 $mail->addReplyTo($config['email']['username'], $config['email']['from']);
                 $mail->addAddress($email, $nama);
-                $mail->addCC($email_agensi);
+                //$mail->addCC($email_agensi);
                 $mail->Subject = 'Status Pembayaran di E-Bayar Perlis';
                 $mail->AddAttachment('resit/'.$trans_id.'.pdf', 'Resit-eBayar-'.$trans_id.'.pdf');
                 $mail->isHTML(true);
