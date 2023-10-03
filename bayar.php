@@ -147,6 +147,7 @@ if($config['fpx']['environment'] == 'Staging'){
                                         <input type="text" class="form-control" name="cukai" placeholder="14 digit No. Cukai Tanah / No. Akaun Hak Milik" minlength="14" maxlength="14" oninvalid="setCustomValidity('Sila isikan 14 digit No. Cukai Tanah / No. Akaun Hak Milik')" oninput="setCustomValidity('')" id="input-cukai">
                                     </div>
                                     <small id="emailHelp" class="form-text text-muted">Ruangan bertanda * adalah wajib diisi.</small>
+                                    <p id="hutan-mendaki" class="text-danger">Sila dapatkan PERMIT masuk Hutan Simpan di Pejabat Hutan Daerah yang berdekatan</p>
                                 </div>
                             </div>
                         </div>
@@ -377,6 +378,11 @@ if($config['fpx']['environment'] == 'Staging'){
                     } else {
                         $('#cukai').hide().val('');
                         $('#input-cukai').attr('required',false);
+                    }
+                    if(agency_code == 15 && service_code == 48){
+                        $('#hutan-mendaki').show();
+                    } else {
+                        $('#hutan-mendaki').hide();
                     }
                     var timestamp = '<?php echo date('ymd') ?>';
                     $('#TRANS_ID').val(agency + service_code + '-' + timestamp);
