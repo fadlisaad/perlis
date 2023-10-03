@@ -147,7 +147,7 @@ if($config['fpx']['environment'] == 'Staging'){
                                         <input type="text" class="form-control" name="cukai" placeholder="14 digit No. Cukai Tanah / No. Akaun Hak Milik" minlength="14" maxlength="14" oninvalid="setCustomValidity('Sila isikan 14 digit No. Cukai Tanah / No. Akaun Hak Milik')" oninput="setCustomValidity('')" id="input-cukai">
                                     </div>
                                     <small id="emailHelp" class="form-text text-muted">Ruangan bertanda * adalah wajib diisi.</small>
-                                    <div class="alert alert-info" id="hutan-mendaki">Sila dapatkan PERMIT masuk Hutan Simpan di Pejabat Hutan Daerah yang berdekatan</div>
+                                    <div class="alert alert-info" id="hutan-mendaki">Sila dapatkan PERMIT masuk Hutan Simpan di Pejabat Perhutanan Negeri Perlis atau Pejabat Hutan Daerah yang berdekatan</div>
                                 </div>
                             </div>
                         </div>
