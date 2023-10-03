@@ -381,7 +381,7 @@ if($config['fpx']['environment'] == 'Staging'){
                         $('#cukai').hide().val('');
                         $('#input-cukai').attr('required',false);
                     }
-                    if(agency_code == 15 && service_code == 48){
+                    if(agency_code == 15 && service_code == '03'){
                         $('#hutan-mendaki').show();
                     } else {
                         $('#hutan-mendaki').hide();
