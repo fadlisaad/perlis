@@ -147,7 +147,7 @@ if($config['fpx']['environment'] == 'Staging'){
                                         <input type="text" class="form-control" name="cukai" placeholder="14 digit No. Cukai Tanah / No. Akaun Hak Milik" minlength="14" maxlength="14" oninvalid="setCustomValidity('Sila isikan 14 digit No. Cukai Tanah / No. Akaun Hak Milik')" oninput="setCustomValidity('')" id="input-cukai">
                                     </div>
                                     <small id="emailHelp" class="form-text text-muted">Ruangan bertanda * adalah wajib diisi.</small>
-                                    <div class="alert alert-info" id="hutan-mendaki">Sila dapatkan PERMIT masuk Hutan Simpan di Pejabat Perhutanan Negeri Perlis atau Pejabat Hutan Daerah yang berdekatan</div>
+                                    <div class="alert alert-info" id="hutan-mendaki">** Sila dapatkan PERMIT masuk Hutan Simpanan Kekal (Borang 6) di Pejabat Perhutanan Negeri Perlis dan Pejabat Hutan Daerah yang berdekatan beserta Khidmat Malim Gunung Perhutanan (MGP) yang telah berdaftar dengan Jabatan Perhutanan Negeri Perlis.</div>
                                 </div>
                             </div>
                         </div>
