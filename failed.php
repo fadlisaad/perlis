@@ -169,7 +169,7 @@ if(isset($_POST['payload'])) {
         }
     echo "<button type='submit' class='btn btn-primary d-print-none'>Kembali ke sistem agensi</button>";
     echo "</form>";
-    <?php endif; ?>
+    endif; ?>
     
                                                 </td>
                                             </tr>
