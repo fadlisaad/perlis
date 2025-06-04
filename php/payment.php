@@ -168,7 +168,10 @@ class Payment
                 'cukai' => $_POST['cukai'],
                 'catatan' => $_POST['catatan'],
                 'agency_email' => $_POST['agency_email'],
-                'email' => $_POST['email']
+                'email' => $_POST['email'],
+                'callback_url' => $_POST['callback_url'] ?? null,
+                'cancel_url' => $_POST['cancel_url'] ?? null,
+                'order_id' => $_POST['order_id'] ?? null,
             ];
 
             $payment = $pdo->prepare("INSERT INTO payments (amount, status_code, status_message, payment_transaction_id, payment_datetime, buyer_name, buyer_bank, merchant_order_no) VALUES (:amount, :status_code, :status_message, :payment_transaction_id, :payment_datetime, :buyer_name, :buyer_bank, :merchant_order_no)");
