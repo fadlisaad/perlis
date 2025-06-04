@@ -154,6 +154,23 @@ if(isset($_POST['payload'])) {
                                             <tr>
                                                 <td>
                                                     <a href="javascript:window.print()" class="btn bg-biru text-white d-print-none"><i class="fa fa-print"></i> Cetak</a>
+    <?php if(isset($_POST['callback_url']) || $_POST['callback_url'] != null):
+    echo "<form id='autosubmit' action='".$_POST['callback_url']."' method='post'>";
+        if (is_array($_POST) || is_object($_POST))
+        {
+            foreach ($_POST as $key => $val) {
+                if($key == 'BE_MESSAGE'){
+                    $new_val = str_replace('_','|',$val); // fix for IOS webview bug
+                    echo "<input type='hidden' name='".$key."' value='".$new_val."'>";
+                } else {
+                    echo "<input type='hidden' name='".$key."' value='".htmlspecialchars($val)."'>";
+                }
+            }
+        }
+    echo "<button type='submit' class='btn btn-primary d-print-none'>Kembali ke sistem agensi</button>";
+    echo "</form>";
+    ?>
+    
                                                 </td>
                                             </tr>
                                         </tbody>
