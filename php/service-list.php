@@ -3,7 +3,7 @@ require ('conn.php');
 
 $agency_id = $_POST['agency_id'];
 
-$stmt = $pdo->prepare("SELECT code, name FROM services WHERE agency_id = :agency_id AND enabled = 1");
+$stmt = $pdo->prepare("SELECT code, name FROM services WHERE agency_id = :agency_id AND enabled = 1 ORDER BY name");
 $stmt->execute(['agency_id' => $agency_id]); 
 $rows = $stmt->fetchAll();
 
