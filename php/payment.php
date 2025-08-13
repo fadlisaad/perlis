@@ -96,7 +96,7 @@ class Payment
             $checksum = $encrypt->getChecksum($checksum_data);
 
             $fpx_data = array(
-                'TRANS_ID' => $data['TRANS_ID'].'-'.$transaction_id,
+                'TRANS_ID' => $data['TRANS_ID'].$transaction_id,
                 'AMOUNT' => $transaction_data['amount'],
                 'PAYEE_NAME' => $transaction_extra['nama'],
                 'PAYEE_EMAIL' => $transaction_extra['email'],
