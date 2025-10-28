@@ -1,7 +1,7 @@
 <?php
 require ('conn.php');
 
-$stm = $pdo->query("SELECT * FROM agencies WHERE code NOT IN ('997','998','999')");
+$stm = $pdo->query("SELECT * FROM agencies WHERE code NOT IN ('997','998','999') AND code LIKE 'TEST%'");
 $rows = $stm->fetchAll(PDO::FETCH_ASSOC);
 
 $list = NULL;
