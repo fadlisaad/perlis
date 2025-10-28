@@ -8,6 +8,9 @@ $config = json_decode(file_get_contents($config_filename), true);
 if($config['fpx']['environment'] == 'Staging'){
     $env = 'staging';
     $merchant_code = '001000STG';
+} elseif($config['mpgs']['environment'] == 'Staging'){
+    $env = 'production';
+    $merchant_code = '';
 } else {
     if($config['maintenance'] == 'on'){
         header('Location:maintenance.php');
@@ -199,8 +202,8 @@ if($config['fpx']['environment'] == 'Staging'){
                             <div class="row mb-3">
                                 <div class="col-lg-6 col-sm-12">
                                     <div class="custom-control custom-radio">
-                                        <input type="radio" id="migs" name="payment_mode" class="custom-control-input" value="migs">
-                                        <label class="custom-control-label" for="migs">Kad Kredit/Debit</label>
+                                        <input type="radio" id="mpgs" name="payment_mode" class="custom-control-input" value="mpgs">
+                                        <label class="custom-control-label" for="mpgs">Kad Kredit/Debit</label>
                                     </div>
                                 </div>
                             </div>
@@ -287,7 +290,7 @@ if($config['fpx']['environment'] == 'Staging'){
                 get_list(mode);
             });
             
-            $('#migs').on('change', function() {
+            $('#mpgs').on('change', function() {
                 $('#agree').removeAttr('required');
             });
 
@@ -395,3 +398,4 @@ if($config['fpx']['environment'] == 'Staging'){
     </body>
 
 </html>
+
