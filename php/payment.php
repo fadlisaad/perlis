@@ -31,12 +31,12 @@ class Payment
 
             $merchant_code = $data['agency'];
 
-            if($this->config['mpgs']['environment'] == 'UAT'){
-                $merchant_code = $data['agency'];
-            }
-
             if($this->config['fpx']['environment'] == 'Staging'){
                 $merchant_code = '001000STG';
+            }
+
+            if($this->config['mpgs']['environment'] == 'UAT'){
+                $merchant_code = $data['agency'];
             }
 
             $payment_mode = $data['payment_mode'];
