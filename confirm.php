@@ -6,7 +6,7 @@ if (!file_exists($config_filename)) {
 $config = json_decode(file_get_contents($config_filename), true);
 
 if($config['mpgs']['environment'] == 'UAT'){
-    echo "<pre>"; var_dump($_POST); echo "</pre>";
+    //echo "<pre>"; var_dump($_POST); echo "</pre>";
 }
 ?>
 <!DOCTYPE html>
