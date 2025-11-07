@@ -5,12 +5,9 @@ if (!file_exists($config_filename)) {
 }
 $config = json_decode(file_get_contents($config_filename), true);
 
-if($config['fpx']['environment'] == 'Staging'){
+if($config['fpx']['environment'] == 'Staging' && $config['mpgs']['environment'] != 'Production'){
     $env = 'staging';
     $merchant_code = '001000STG';
-} elseif($config['mpgs']['environment'] == 'Staging'){
-    $env = 'production';
-    $merchant_code = '';
 } else {
     if($config['maintenance'] == 'on'){
         header('Location:maintenance.php');

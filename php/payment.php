@@ -29,10 +29,8 @@ class Payment
 
         if(isset($data)){
 
-            if($this->config['fpx']['environment'] == 'Staging'){
+            if($this->config['fpx']['environment'] == 'Staging' && $this->config['mpgs']['environment'] != 'Production'){
                 $merchant_code = '001000STG';
-            } elseif($this->config['mpgs']['environment'] == 'Staging') {
-                $merchant_code = $data['agency'];
             } else {
                 $merchant_code = $data['agency'];
             }
