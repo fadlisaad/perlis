@@ -118,21 +118,21 @@ if($config['fpx']['environment'] == 'Staging' && $config['mpgs']['environment'] 
                                     </div>
                                     <div class="form-group">
                                         <label for="nama">Nama <span class="text-danger">*</span></label>
-                                        <input type="text" class="form-control" name="nama" placeholder="Nama pembayar" required="" pattern=".{3,}" oninvalid="setCustomValidity('Sila masukkan nama penuh anda')" oninput="setCustomValidity('')">
+                                        <input type="text" class="form-control" name="nama" id="nama" placeholder="Nama pembayar" required="" pattern=".{3,}" oninvalid="setCustomValidity('Sila masukkan nama penuh anda')" oninput="setCustomValidity('')">
                                     </div>
                                     <div class="row">
                                         <div class="form-group col-lg-6">
                                             <label for="nric">No. Kad Pengenalan <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="nric" placeholder="XXXXXX-XX-XXXX" required="" pattern=".{12,}" oninvalid="setCustomValidity('Sila masukkan nombor kad pengenalan anda')" oninput="setCustomValidity('')">
+                                            <input type="text" class="form-control" name="nric" id="nric" placeholder="XXXXXX-XX-XXXX" required="" pattern=".{12,}" oninvalid="setCustomValidity('Sila masukkan nombor kad pengenalan anda')" oninput="setCustomValidity('')">
                                         </div>
                                         <div class="form-group col-lg-6">
                                             <label for="telefon">No. Telefon <span class="text-danger">*</span></label>
-                                            <input type="text" class="form-control" name="telefon" placeholder="01XXXXXXXX" required="" pattern=".{7,}" oninvalid="setCustomValidity('Sila nasukkan nombor telefon anda')" oninput="setCustomValidity('')">
+                                            <input type="text" class="form-control" name="telefon" id="telefon" placeholder="01XXXXXXXX" required="" pattern=".{7,}" oninvalid="setCustomValidity('Sila nasukkan nombor telefon anda')" oninput="setCustomValidity('')">
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label for="email">E-mail <span class="text-danger">*</span></label>
-                                        <input type="email" class="form-control" name="email" aria-describedby="emailHelp" placeholder="Alamat e-mail anda" required="" oninvalid="setCustomValidity('Sila masukkan alamat email anda bagi tujuan penghantaran resit pembayaran')" oninput="setCustomValidity('')">
+                                        <input type="email" class="form-control" name="email" id="email" aria-describedby="emailHelp" placeholder="Alamat e-mail anda" required="" oninvalid="setCustomValidity('Sila masukkan alamat email anda bagi tujuan penghantaran resit pembayaran')" oninput="setCustomValidity('')">
                                     </div>
                                     <div class="form-group">
                                         <label for="catatan">Catatan</label>
@@ -327,94 +327,116 @@ if($config['fpx']['environment'] == 'Staging' && $config['mpgs']['environment'] 
 
                 // get URL parameters
                 var urlParams = new URLSearchParams(window.location.search);
+                var agency_code = urlParams.get('agency');
+                var service_code = urlParams.get('service');
+                var amount = urlParams.get('amount');
+                var name = urlParams.get('name');
+                var email = urlParams.get('email');
+                var ic_no = urlParams.get('ic_no');
+                var agency_email = urlParams.get('agency_email');
+                var phone = urlParams.get('phone');
 
-                if (urlParams.has('name') || urlParams.has('agency_code') || urlParams.has('service_code') || urlParams.has('amount') || urlParams.has('email') || urlParams.has('ic_no')) {
-
-                    var agency_code = urlParams.get('agency_code');
-                    var service_code = urlParams.get('service_code');
-                    var amount = urlParams.get('amount');
-                    var name = urlParams.get('name');
-                    var email = urlParams.get('email');
-                    var ic_no = urlParams.get('ic_no');
-                    var agency_email = urlParams.get('agency_email');
-
-                    // set values
-                    $('#name').val(name).prop('readonly', true);
-                    $('#email').val(email).prop('readonly', true);
-                    $('#ic_no').val(ic_no).prop('readonly', true);
-                    $('#agency_code').val(agency_code).prop('readonly', true);
-                    $('#agency_email').val(agency_email);
-                    $('#service_code').val(service_code);
-                    $('#amount').val(amount).prop('readonly', true);
-
-                } else {
-
-                    // get agency list
-
+                function loadServices(agencyId, selectedService) {
                     $.ajax({
-                        type: "GET",
-                        url: "php/agency-list.php",
+                        type: "POST",
+                        url: "php/service-list.php",
+                        data: {
+                            'agency_id' : agencyId
+                        },
                         success: function(data) {
-                            $('#agency').append(data);
-                        }
-                    });
-
-                    $('select.agency').on('change', function(){
-                        $('select.service').val('');
-                        var agency_code = $(this).find('option:selected').data('id');
-                        var agency_email = $(this).find('option:selected').data('email');
-                        $('#agency_id').val(agency_code);
-                        $('#agency_email').val(agency_email);
-                        $.ajax({
-                            type: "POST",
-                            url: "php/service-list.php",
-                            data: {
-                                'agency_id' : agency_code
-                            },
-                            success: function(data) {
-                                $('#service').find('option').not('[value=0]').remove();
-                                $('#service').append(data);
+                            $('#service').find('option').not('[value=0]').remove();
+                            $('#service').append(data);
+                            
+                            // If service parameter exists, set it
+                            if (selectedService) {
+                                $('#service').val(selectedService);
+                                triggerServiceChange();
                             }
-                        });
-                    });
-
-                    $('select.service').on('change', function(){
-
-                        var environment = '<?php echo $env ?>';
-                        var agency_code = $('select.agency').find('option:selected').data('id');
-
-                        if(environment == 'staging'){
-                            var agency = '<?php echo $merchant_code ?>';
-                            var agency_email = '<?php echo $config['email']['username'] ?>';
-                            $('#agency_email').val(agency_email);
-                        } else {
-                            var agency = $('select.agency').find('option:selected').val();
                         }
+                    });
+                }
+
+                // Load agency list
+                $.ajax({
+                    type: "GET",
+                    url: "php/agency-list.php",
+                    success: function(data) {
+                        $('#agency').append(data);
                         
-                        var service_code = $(this).find('option:selected').val();
+                        // Attach event handler after options are loaded
+                        $('select.agency').on('change', function(){
+                            $('select.service').val('');
+                            var agency_code = $(this).find('option:selected').data('id');
+                            var agency_email = $(this).find('option:selected').data('email');
+                            $('#agency_id').val(agency_code);
+                            $('#agency_email').val(agency_email);
+                            loadServices(agency_code);
+                        });
+                        
+                        // If agency parameter exists, set it and load services
+                        if (agency_code) {
+                            $('#agency').val(agency_code);
+                            var selectedAgencyId = $('#agency').find('option:selected').data('id');
+                            $('#agency_id').val(selectedAgencyId);
+                            var selectedAgencyEmail = $('#agency').find('option:selected').data('email');
+                            $('#agency_email').val(selectedAgencyEmail);
+                            loadServices(selectedAgencyId, service_code);
+                        }
+                    },
+                    error: function() {
+                        console.error('Failed to load agency list');
+                    }
+                });
 
-                        if(agency_code == 6 && service_code == 2){
-                            $('#alamat').show();
-                            $('#input-alamat').attr('required',true);
-                        } else {
-                            $('#alamat').hide().val('');
-                            $('#input-alamat').attr('required',false);
-                        }
-                        if(agency_code == 16 && service_code == 1){
-                            $('#cukai').show();
-                            $('#input-cukai').attr('required',true);
-                        } else {
-                            $('#cukai').hide().val('');
-                            $('#input-cukai').attr('required',false);
-                        }
-                        if(agency_code == 15 && service_code == '03'){
-                            $('#hutan-mendaki').show();
-                        } else {
-                            $('#hutan-mendaki').hide();
-                        }
-                        var timestamp = '<?php echo date('ymd') ?>';
-                        $('#TRANS_ID').val(agency + service_code + '-' + timestamp);
-                    });
+                function triggerServiceChange() {
+                    var environment = '<?php echo $env ?>';
+                    var agency_code = $('select.agency').find('option:selected').data('id');
+
+                    if(environment == 'staging'){
+                        var agency = '<?php echo $merchant_code ?>';
+                        var agency_email = '<?php echo $config['email']['username'] ?>';
+                        $('#agency_email').val(agency_email);
+                    } else {
+                        var agency = $('select.agency').find('option:selected').val();
+                    }
+                    
+                    var service_code = $('select.service').find('option:selected').val();
+
+                    if(agency_code == 6 && service_code == 2){
+                        $('#alamat').show();
+                        $('#input-alamat').attr('required',true);
+                    } else {
+                        $('#alamat').hide().val('');
+                        $('#input-alamat').attr('required',false);
+                    }
+                    if(agency_code == 16 && service_code == 1){
+                        $('#cukai').show();
+                        $('#input-cukai').attr('required',true);
+                    } else {
+                        $('#cukai').hide().val('');
+                        $('#input-cukai').attr('required',false);
+                    }
+                    if(agency_code == 15 && service_code == '03'){
+                        $('#hutan-mendaki').show();
+                    } else {
+                        $('#hutan-mendaki').hide();
+                    }
+                    var timestamp = '<?php echo date('ymd') ?>';
+                    $('#TRANS_ID').val(agency + service_code + '-' + timestamp);
+                }
+
+                $('select.service').on('change', function(){
+                    triggerServiceChange();
+                });
+
+                // Set form values if parameters exist
+                if (name || agency_code || service_code || amount || email || ic_no) {
+                    if (name) $('#nama').val(name).prop('readonly', true);
+                    if (email) $('#email').val(email).prop('readonly', true);
+                    if (ic_no) $('#nric').val(ic_no).prop('readonly', true);
+                    if (phone) $('#telefon').val(phone).prop('readonly', true);
+                    if (agency_email) $('#agency_email').val(agency_email);
+                    if (amount) $('#amount').val(amount).prop('readonly', true);
                 }
             });
         </script>
