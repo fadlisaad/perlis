@@ -323,72 +323,98 @@ if($config['fpx']['environment'] == 'Staging' && $config['mpgs']['environment'] 
 
             $(document).ready(function(){
 
-                $.ajax({
-                    type: "GET",
-                    url: "php/agency-list.php",
-                    success: function(data) {
-                        $('#agency').append(data);
-                    }
-                });
+                // get URL parameters
+                var urlParams = new URLSearchParams(window.location.search);
 
-                $('select.agency').on('change', function(){
-                    $('select.service').val('');
-                    var agency_code = $(this).find('option:selected').data('id');
-                    var agency_email = $(this).find('option:selected').data('email');
-                    $('#agency_id').val(agency_code);
+                if (urlParams.has('name') || urlParams.has('agency_code') || urlParams.has('service_code') || urlParams.has('amount') || urlParams.has('email') || urlParams.has('ic_no')) {
+
+                    var agency_code = urlParams.get('agency_code');
+                    var service_code = urlParams.get('service_code');
+                    var amount = urlParams.get('amount');
+                    var name = urlParams.get('name');
+                    var email = urlParams.get('email');
+                    var ic_no = urlParams.get('ic_no');
+                    var agency_email = urlParams.get('agency_email');
+
+                    // set values
+                    $('#name').val(name).prop('readonly', true);
+                    $('#email').val(email).prop('readonly', true);
+                    $('#ic_no').val(ic_no).prop('readonly', true);
+                    $('#agency_code').val(agency_code).prop('readonly', true);
                     $('#agency_email').val(agency_email);
+                    $('#service_code').val(service_code);
+                    $('#amount').val(amount).prop('readonly', true);
+
+                } else {
+
+                    // get agency list
+
                     $.ajax({
-                        type: "POST",
-                        url: "php/service-list.php",
-                        data: {
-                            'agency_id' : agency_code
-                        },
+                        type: "GET",
+                        url: "php/agency-list.php",
                         success: function(data) {
-                            $('#service').find('option').not('[value=0]').remove();
-                            $('#service').append(data);
+                            $('#agency').append(data);
                         }
                     });
-                });
 
-                $('#hutan-mendaki').hide();
-
-                $('select.service').on('change', function(){
-
-                    var environment = '<?php echo $env ?>';
-                    var agency_code = $('select.agency').find('option:selected').data('id');
-
-                    if(environment == 'staging'){
-                        var agency = '<?php echo $merchant_code ?>';
-                        var agency_email = '<?php echo $config['email']['username'] ?>';
+                    $('select.agency').on('change', function(){
+                        $('select.service').val('');
+                        var agency_code = $(this).find('option:selected').data('id');
+                        var agency_email = $(this).find('option:selected').data('email');
+                        $('#agency_id').val(agency_code);
                         $('#agency_email').val(agency_email);
-                    } else {
-                        var agency = $('select.agency').find('option:selected').val();
-                    }
-                    
-                    var service_code = $(this).find('option:selected').val();
+                        $.ajax({
+                            type: "POST",
+                            url: "php/service-list.php",
+                            data: {
+                                'agency_id' : agency_code
+                            },
+                            success: function(data) {
+                                $('#service').find('option').not('[value=0]').remove();
+                                $('#service').append(data);
+                            }
+                        });
+                    });
 
-                    if(agency_code == 6 && service_code == 2){
-                        $('#alamat').show();
-                        $('#input-alamat').attr('required',true);
-                    } else {
-                        $('#alamat').hide().val('');
-                        $('#input-alamat').attr('required',false);
-                    }
-                    if(agency_code == 16 && service_code == 1){
-                        $('#cukai').show();
-                        $('#input-cukai').attr('required',true);
-                    } else {
-                        $('#cukai').hide().val('');
-                        $('#input-cukai').attr('required',false);
-                    }
-                    if(agency_code == 15 && service_code == '03'){
-                        $('#hutan-mendaki').show();
-                    } else {
-                        $('#hutan-mendaki').hide();
-                    }
-                    var timestamp = '<?php echo date('ymd') ?>';
-                    $('#TRANS_ID').val(agency + service_code + '-' + timestamp);
-                });
+                    $('#hutan-mendaki').hide();
+
+                    $('select.service').on('change', function(){
+
+                        var environment = '<?php echo $env ?>';
+                        var agency_code = $('select.agency').find('option:selected').data('id');
+
+                        if(environment == 'staging'){
+                            var agency = '<?php echo $merchant_code ?>';
+                            var agency_email = '<?php echo $config['email']['username'] ?>';
+                            $('#agency_email').val(agency_email);
+                        } else {
+                            var agency = $('select.agency').find('option:selected').val();
+                        }
+                        
+                        var service_code = $(this).find('option:selected').val();
+
+                        if(agency_code == 6 && service_code == 2){
+                            $('#alamat').show();
+                            $('#input-alamat').attr('required',true);
+                        } else {
+                            $('#alamat').hide().val('');
+                            $('#input-alamat').attr('required',false);
+                        }
+                        if(agency_code == 16 && service_code == 1){
+                            $('#cukai').show();
+                            $('#input-cukai').attr('required',true);
+                        } else {
+                            $('#cukai').hide().val('');
+                            $('#input-cukai').attr('required',false);
+                        }
+                        if(agency_code == 15 && service_code == '03'){
+                            $('#hutan-mendaki').show();
+                        } else {
+                            $('#hutan-mendaki').hide();
+                        }
+                        var timestamp = '<?php echo date('ymd') ?>';
+                        $('#TRANS_ID').val(agency + service_code + '-' + timestamp);
+                    });
 
             });
         </script>
