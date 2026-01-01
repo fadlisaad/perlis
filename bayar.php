@@ -323,6 +323,8 @@ if($config['fpx']['environment'] == 'Staging' && $config['mpgs']['environment'] 
 
             $(document).ready(function(){
 
+                $('#hutan-mendaki').hide();
+
                 // get URL parameters
                 var urlParams = new URLSearchParams(window.location.search);
 
@@ -376,8 +378,6 @@ if($config['fpx']['environment'] == 'Staging' && $config['mpgs']['environment'] 
                         });
                     });
 
-                    $('#hutan-mendaki').hide();
-
                     $('select.service').on('change', function(){
 
                         var environment = '<?php echo $env ?>';
@@ -415,7 +415,7 @@ if($config['fpx']['environment'] == 'Staging' && $config['mpgs']['environment'] 
                         var timestamp = '<?php echo date('ymd') ?>';
                         $('#TRANS_ID').val(agency + service_code + '-' + timestamp);
                     });
-
+                }
             });
         </script>
     </body>
