@@ -1,3 +1,14 @@
+<?php
+$config_filename = 'config.json';
+if (!file_exists($config_filename)) {
+    throw new Exception("Can't find ".$config_filename);
+}
+$config = json_decode(file_get_contents($config_filename), true);
+
+if($config['mpgs']['environment'] == 'UAT'){
+    //echo "<pre>"; var_dump($_POST); echo "</pre>";
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
     <head>
@@ -75,8 +86,6 @@
                             <h4>Pengesahan</h4>
                             <?php
                             require ('php/conn.php');
-
-                            //echo "<pre>"; var_dump($_POST); echo "</pre>";
 
                             $service = $_POST['service'];
                             $agency = $_POST['agency'];
