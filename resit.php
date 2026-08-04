@@ -343,6 +343,7 @@ if(isset($_POST['payload'])) {
                 $mail->SMTPAuth = false;
                 $mail->SMTPSecure  = 'tls';
                 $mail->SMTPAutoTLS = true;
+                $mail->Helo = 'perlis.gov.my';
                 $mail->Username = $config['email']['username'];
                 $mail->Password = $config['email']['password'];
                 $mail->setFrom($config['email']['username'], $config['email']['from']);
