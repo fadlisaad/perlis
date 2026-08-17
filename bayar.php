@@ -422,7 +422,7 @@ if($config['fpx']['environment'] == 'Staging' && $config['mpgs']['environment'] 
                         $('#hutan-mendaki').hide();
                     }
                     var timestamp = '<?php echo date('ymd') ?>';
-                    $('#TRANS_ID').val(agency + service_code + '-' + timestamp);
+                    $('#TRANS_ID').val(agency + service_code + timestamp);
                 }
 
                 $('select.service').on('change', function(){
