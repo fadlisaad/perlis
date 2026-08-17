@@ -143,6 +143,21 @@ class Payment
         require ('conn.php');
 
         $input = $_POST;
+
+        // cover for external payment
+        if (isset($_POST['source']) && $_POST['source'] == 'ext') {
+            // redirect all post data to ebayar-api
+            echo "<form id=\"external_payment\" action=\"".$this->config['ebayar']['ebayar_api_url']."/api/payment/response\" method=\"post\">";
+            foreach ($input as $a => $b) {
+                echo '<input type="hidden" name="'.htmlentities($a).'" value="'.filter_var($b, FILTER_SANITIZE_STRING).'">';
+            }
+            echo '<input type="hidden" name="payload" value="'.base64_encode('eb4yAr').'">';
+            echo "</form>";
+            echo "<script type=\"text/javascript\">
+                document.getElementById('external_payment').submit();
+            </script>";
+            exit;
+        }
         
         if($_POST['STATUS'] == '1'){
 
