@@ -147,7 +147,7 @@ class Payment
         // cover for external payment
         if (isset($_POST['source']) && $_POST['source'] == 'ext') {
             // redirect all post data to ebayar-api
-            echo "<form id=\"external_payment\" action=\"".$this->config['ebayar']['ebayar_api_url']."/api/payment/response\" method=\"post\">";
+            echo "<form id=\"external_payment\" action=\"".$this->config['ebayar_api_url']."/api/payment/response\" method=\"post\">";
             foreach ($input as $a => $b) {
                 echo '<input type="hidden" name="'.htmlentities($a).'" value="'.filter_var($b, FILTER_SANITIZE_STRING).'">';
             }
